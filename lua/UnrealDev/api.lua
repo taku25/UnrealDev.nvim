@@ -56,6 +56,8 @@ M.purge = uep_api.purge
 M.cleanup = uep_api.cleanup
 M.add_include = uep_api.add_include
 M.goto_definition = uep_api.goto_definition
+M.classes = uep_api.classes
+M.structs = uep_api.structs
 
 --
 -- ULG API

@@ -195,6 +195,24 @@ builder.create({
         { name = "class_name", required = false },
       },
     },
+    ["classes"] = {
+      handler = api.classes,
+      bang = true,
+      desc = "UEP: Find and jump to a class definition by name (shows picker if no name).",
+      args = {
+        { name = "category", required = false },
+        { name = "deps_flag", required = false },
+      },
+    },
+    ["structs"] = {
+      handler = api.structs,
+      bang = true,
+      desc = "UEP: Find and jump to a struct definition by name (shows picker if no name).",
+      args = {
+        { name = "category", required = false },
+        { name = "deps_flag", required = false },
+      },
+    },
     ["goto_definition"] = {
       handler = api.goto_definition,
       bang = true,

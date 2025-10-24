@@ -1,6 +1,7 @@
 -- lua/UnrealDev/api.lua (UCM.api を require する形)
 
 -- 各プラグインのAPIを require
+local unl_api = require("UNL.api")
 local ubt_api = require("UBT.api")
 local uep_api = require("UEP.api")
 local ulg_api = require("ULG.api")
@@ -8,6 +9,19 @@ local ush_api = require("USH.api")
 local ucm_api = require("UCM.api") -- ★ UCM.api を追加
 
 local M = {}
+
+--
+-- UNL API
+--
+
+
+M.get_progress_component = unl_api.get_progress_component
+M.find_project = unl_api.find_project
+M.find_module = unl_api.find_module
+M.find_engine = unl_api.find_engine
+M.find_insights = unl_api.find_insights
+M.kismet_command = unl_api.kismet_command
+M.is_process_running = unl_api.is_process_running
 
 --
 -- UBT API
@@ -68,7 +82,7 @@ M.p4 = ush_api.p4
 M.direct = ush_api.direct
 
 --
--- UCM API (★ ご提示いただいた形に変更)
+-- UCM API
 --
 M.new_class = ucm_api.new_class
 M.delete_class = ucm_api.delete_class

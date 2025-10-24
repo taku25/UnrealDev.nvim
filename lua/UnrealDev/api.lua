@@ -55,6 +55,7 @@ M.open_file = uep_api.open_file
 M.purge = uep_api.purge
 M.cleanup = uep_api.cleanup
 M.add_include = uep_api.add_include
+M.goto_definition = uep_api.goto_definition
 
 --
 -- ULG API

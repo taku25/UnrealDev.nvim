@@ -195,6 +195,14 @@ builder.create({
         { name = "class_name", required = false },
       },
     },
+    ["goto_definition"] = {
+      handler = api.goto_definition,
+      bang = true,
+      desc = "UEP: Jump to true definition (skips forward declarations). Use `!` for class picker.",
+      args = {
+        { name = "class_name", required = false },
+      },
+    },
 
     ["new"] = {
       handler = function(opts) api.new_class(opts) end,

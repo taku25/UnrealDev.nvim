@@ -58,6 +58,8 @@ M.add_include = uep_api.add_include
 M.goto_definition = uep_api.goto_definition
 M.classes = uep_api.classes
 M.structs = uep_api.structs
+M.enums = uep_api.enums
+M.config_grep = uep_api.config_grep
 
 --
 -- ULG API

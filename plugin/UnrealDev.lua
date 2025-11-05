@@ -213,6 +213,24 @@ builder.create({
         { name = "deps_flag", required = false },
       },
     },
+    ["enums"] = {
+      handler = api.enums,
+      bang = true,
+      desc = "UEP: Find and jump to a enum definition by name (shows picker if no name).",
+      args = {
+        { name = "category", required = false },
+        { name = "deps_flag", required = false },
+      },
+    },
+    ["config_grep"] = {
+      handler = api.config_grep,
+      bang = true,
+      desc = "UEP: config_grep [game|engine]",
+      args = {
+        { name = "category", required = false },
+        { name = "deps_flag", required = false },
+      },
+    },
     ["goto_definition"] = {
       handler = api.goto_definition,
       bang = true,

@@ -30,7 +30,7 @@ Its purpose is to simplify the setup of each plugin and allow all Unreal Engine-
       * [**ULG.nvim**](https://github.com/taku25/ULG.nvim)
       * [**USH.nvim**](https://github.com/taku25/USH.nvim)
   * **External Tools (Required by various plugins):**
-      * [fd](https://github.com/sharkdp/fd) (Recommended for UEP scan, UCM, and ULG UI)
+      * [fd](https://github.com/sharkdp/fd) (Required  for UEP scan, UCM, and ULG UI)
       * [rg](https://github.com/BurntSushi/ripgrep) (Required for UEP grep)
   * **Optional (UI) (Strongly recommended for the full suite experience):**
       * **UI (Picker):**

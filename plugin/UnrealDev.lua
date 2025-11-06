@@ -240,7 +240,7 @@ builder.create({
       },
     },
 
-    ["new"] = {
+    ["new_class"] = {
       handler = function(opts) api.new_class(opts) end,
       desc = "UCM: Create a new class, interactively if args are omitted.",
       args = {
@@ -256,7 +256,7 @@ builder.create({
         { name = "file_path", required = false },
       },
     },
-    ["move"] = {
+    ["move_class"] = {
       handler = function(opts) api.move_class(opts) end,
       desc = "UCM: Move a class, interactively if file path is omitted.",
       args = {
@@ -264,7 +264,7 @@ builder.create({
         { name = "target_dir ", required = false },
       },
     },
-    ["rename"] = {
+    ["rename_class"] = {
       handler = function(opts) api.rename_class(opts) end,
       desc = "UCM: Rename a class, interactively if args are omitted.",
       args = {

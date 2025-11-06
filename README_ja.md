@@ -31,7 +31,7 @@
       * [**ULG.nvim**](https://github.com/taku25/ULG.nvim)
       * [**USH.nvim**](https://github.com/taku25/USH.nvim)
   * **外部ツール (各プラグインが要求):**
-      * [fd](https://github.com/sharkdp/fd) (UEPのスキャン、UCM、ULG のUIで推奨)
+      * [fd](https://github.com/sharkdp/fd) (UEPのスキャン、UCM、ULG のUIで必須)
       * [rg](https://github.com/BurntSushi/ripgrep) (UEPのGrepに必須)
   * **オプション (UI) (スイート全体の体験向上のため、導入を強く推奨):**
       * **UI (Picker):**

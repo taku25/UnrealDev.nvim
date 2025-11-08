@@ -1,4 +1,14 @@
 local M = {
+
+  -- 各サブモジュールの setup() を呼び出すかどうかを制御します
+  setup_modules = {
+    UBT = true,
+    UEP = true,
+    ULG = true,
+    USH = true,
+    UCM = true,
+  },
+  
   logging = {
     level = "off",
     echo = { level = "off" },

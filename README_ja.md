@@ -64,11 +64,15 @@ return {
       'taku25/USH.nvim', -- Unreal シェル
       
       -- UIプラグイン (オプション)
+      -- picker
       'nvim-telescope/telescope.nvim',
-      'ibhagwan/fzf-lua',
-      'nvim-neo-tree/neo-tree.nvim',
-      'taku25/neo-tree-unl.nvim',
+      -- or 
+      --'ibhagwan/fzf-lua',
+      -- or
+      --'folke/snacks.nvim',
+      -- プログレス
       'j-hui/fidget.nvim',
+      -- ステータスライン
       'nvim-lualine/lualine.nvim',
     },
     -- UnrealDev.nvim 固有の設定 (主にロギング)

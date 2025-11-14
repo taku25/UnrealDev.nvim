@@ -6,7 +6,18 @@
 
 Its purpose is to simplify the setup of each plugin and allow all Unreal Engine-related operations to be called from a single interface.
 
-[English](README.md) | [日本語 (Japanese)](https://www.google.com/search?q=README_ja.md)
+[English](README.md) | [日本語 (Japanese)](README_ja.md)
+
+-----
+
+## 📚 Detailed Documentation (Wiki)
+
+**Detailed installation instructions, configuration, command lists, and API usage examples are all available on the [GitHub Wiki](https://github.com/taku25/UnrealDev.nvim/wiki).**
+
+Please refer to the wiki first when setting up or customizing.
+
+  * **[➡️ 🚀 Installation & Setup](https://github.com/taku25/UnrealDev.nvim/wiki/Installation)**
+  * **[➡️ ⚙️Configuration](https://github.com/taku25/UnrealDev.nvim/wiki/Configuration)**
 
 -----
 
@@ -29,25 +40,12 @@ Its purpose is to simplify the setup of each plugin and allow all Unreal Engine-
       * [**UCM.nvim**](https://github.com/taku25/UCM.nvim)
       * [**ULG.nvim**](https://github.com/taku25/ULG.nvim)
       * [**USH.nvim**](https://github.com/taku25/USH.nvim)
-  * **External Tools (Required by various plugins):**
-      * [fd](https://github.com/sharkdp/fd) (Required  for UEP scan, UCM, and ULG UI)
-      * [rg](https://github.com/BurntSushi/ripgrep) (Required for UEP grep)
-  * **Optional (UI) (Strongly recommended for the full suite experience):**
-      * **UI (Picker):**
-          * [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)
-          * [fzf-lua](https://github.com/ibhagwan/fzf-lua)
-          * [snacks](https://github.com/folke/snacks.nvim)
-      * **UI (Tree View):**
-          * [neo-tree.nvim](https://github.com/nvim-neo-tree/neo-tree.nvim)
-          * [neo-tree-unl.nvim](https://github.com/taku25/neo-tree-unl.nvim) (Required for UEP tree and ULG insights)
-      * **UI (Progress):**
-          * [fidget.nvim](https://github.com/j-hui/fidget.nvim) (Recommended for UBT progress display)
-      * **UI (Statusline):**
-          * [lualine.nvim](https://github.com/nvim-lualine/lualine.nvim) (Recommended for ULG status display)
+
+**✅ For a complete list of external tool requirements (like `fd`, `rg`) and recommended UI plugins (like `telescope`, `neo-tree`), please see the [Wiki Installation Page](https://github.com/taku25/UnrealDev.nvim/wiki/Installation).**
 
 ## 🚀 Installation
 
-Example for [lazy.nvim](https://github.com/folke/lazy.nvim).
+Example installation for [lazy.nvim](https://github.com/folke/lazy.nvim).
 Define `UnrealDev.nvim` as dependent on all other suite plugins.
 
 ```lua
@@ -56,204 +54,90 @@ return {
     'taku25/UnrealDev.nvim',
     -- Specify all plugins in the development suite as dependencies
     dependencies = {
-      'taku25/UNL.nvim', -- Core Library
+      {
+        'taku25/UNL.nvim', -- Core Library
+        lazy = false,
+      }
       'taku25/UEP.nvim', -- Project Explorer
       'taku25/UBT.nvim', -- Build Tool
       'taku25/UCM.nvim', -- Class Manager
       'taku25/ULG.nvim', -- Log Viewer
       'taku25/USH.nvim', -- Unreal Shell
+      {
+        'taku25/USX.nvim', -- Syntax highlight
+        lazy=false,
+      }
       
       -- UI Plugins (Optional)
       'nvim-telescope/telescope.nvim',
-      'ibhagwan/fzf-lua',
-      'folke/snacks.nvim',
-      'nvim-neo-tree/neo-tree.nvim',
-      'taku25/neo-tree-unl.nvim',
       'j-hui/fidget.nvim',
       'nvim-lualine/lualine.nvim',
+      -- ...
     },
-    -- Configuration specific to UnrealDev.nvim (mainly logging)
     opts = {
-      logging = {
-        level = "info",
-        echo = { level = "warn" },
-        notify = { level = "error", prefix = "[UDEV]" },
-        file = { enable = true, max_kb = 256, rotate = 1, filename = "udev.log" },
-      },
+      -- Configuration specific to UnrealDev.nvim (mainly logging)
     },
   },
 
   -- ---
   -- Individual Plugin Settings (Optional)
   -- ---
-  -- (Example) UBT.nvim settings
-  {
-    'taku25/UBT.nvim',
-    opts = {
-      presets = {
-          -- Custom presets
-      },
-      preset_target = "Win64DevelopWithEditor",
-    }
-  },
-  
-  -- (Example) UEP.nvim settings
-  {
-    'taku25/UEP.nvim',
-    opts = {
-      engine_path = "C:/Program Files/Epic Games/UE_5.4", -- Specify engine path
-    }
-  },
-  
-  -- (Example) UCM.nvim settings
-  { 'taku25/UCM.nvim', opts = { ... } },
-  -- (Example) ULG.nvim settings
-  { 'taku25/ULG.nvim', opts = { ... } },
-  -- (Example) USH.nvim settings
-  { 'taku25/USH.nvim', opts = { ... } },
+  { 'taku25/UBT.nvim', opts = { ... } },
+  { 'taku25/UEP.nvim', opts = { ... } },
+  -- ...
 }
 ```
 
+**✅ For a complete installation example including UI plugins, and detailed `opts` examples for each plugin (`UEP`, `UBT`, etc.), please see the [Wiki Installation Guide](https://github.com/taku25/UnrealDev.nvim/wiki/Installation).**
+
 ## ⚙️ Configuration
 
-Configuration for `UnrealDev.nvim` itself is minimal, such as `logging`, as shown in the `opts` table above.
+Configuration for `UnrealDev.nvim` itself is minimal, such as `logging` settings shown in the `opts` table above.
 
-Configuration for each plugin included in the suite (`UEP`, `UBT`, etc.) is done by passing `opts` to each plugin's spec in `lazy.nvim` (see installation example above).
-Please refer to each plugin's `README` for configuration details.
+Configuration for each plugin in the suite (`UEP`, `UBT`, etc.) is done by passing `opts` to each plugin's spec in `lazy.nvim` (see installation example above).
+
+**✅ For detailed configuration options for each plugin, please refer to the [Wiki Configuration Page](https://github.com/taku25/UnrealDev.nvim/wiki/Configuration) or each plugin's individual `README`.**
 
 ## ⚡ Usage
 
 All commands start with `:UDEV`.
 
 ```viml
-" ===== UEP Commands ===== "
+" ===== (Examples) ===== "
+
 " Rescan the project
-:UDEV refresh [Game|Engine]
+:UDEV refresh
+
 " Find files
-:UDEV files[!] [Game|Engine]
-" Insert #include for a class
-:UDEV add_include[!] [ClassName]
-" Find derived classes
-:UDEV find_derived[!] [ClassName]
-" Show project tree
-:UDEV tree
-" (And all other UEP commands: module_files, grep, open_file, cd, etc.)
+:UDEV files
 
-
-" ===== UBT Commands ===== "
 " Build a target
-:UDEV build[!] [label]
-" Generate compile_commands.json
-:UDEV gencompiledb[!] [label]
-" Generate project files (sln, etc.)
-:UDEV genproject
-" Run the project
-:UDEV run
-" (And all other UBT commands: genheader, lint, diagnostics)
+:UDEV build
 
-
-" ===== UCM Commands ===== "
 " Create a new class
-:UDEV new [class_name] [parent_class]
-" Switch between header/source
+:UDEV new MyNewActor AActor
+
+" Switch header/source
 :UDEV switch
-" Delete a class (renamed to class_delete to avoid conflict)
-:UDEV class_delete [file_path]
-" (And all other UCM commands: move, rename)
 
-
-" ===== ULG Commands ===== "
 " Start tailing a log
-:UDEV start_log[!]
-" Stop tailing the log
-:UDEV stop_log
-" Close log windows
-:UDEV close_log
-" (And all other ULG commands: trace_log, crash_log, remote, remote_command)
-
-
-" ===== USH Commands ===== "
-" Start UShell session
-:UDEV start_session
-" Stop UShell session
-:UDEV stop_session
-" Build via UShell
-:UDEV ushell_build
-" (And all other USH commands: ushell_cook, ushell_run, sln, uat, stage, p4, direct)
+:UDEV start_log
 ```
 
-### Command Details
-
-`UnrealDev.nvim` maps each plugin's commands as subcommands of `:UDEV`.
-
-  * `:UEP refresh` from `UEP.nvim` becomes `:UDEV refresh`.
-  * `:UBT build` from `UBT.nvim` becomes `:UDEV build`.
-
-**Regarding Name Conflicts:**
-
-  * `:UCM delete` is mapped to `:UDEV class_delete`.
-  * `:UEP delete` is mapped to `:UDEV project_delete`.
-  * `ULG` commands have `_log` appended, like `:UDEV start_log`, `:UDEV stop_log`.
-  * `USH` commands may have `ushell_` prefixed, like `:UDEV ushell_build`.
-
-**For arguments and detailed behavior of each command, please refer to the original plugin's documentation.**
-
-  * [**UEP.nvim (Usage)**](https://github.com/taku25/UEP.nvim/blob/main/README.md)
-  * [**UBT.nvim (README)**](https://github.com/taku25/UBT.nvim/blob/main/README.md)
-  * [**UCM.nvim (README)**](https://github.com/taku25/UCM.nvim/blob/main/README.md)
-  * [**ULG.nvim (README)**](https://github.com/taku25/ULG.nvim/blob/main/README.md)
-  * [**USH.nvim (README)**](https://github.com/taku25/USH.nvim/blob/main/README.md)
+**✅ For details on all `UDEV` subcommands, arguments, and command name conflicts (e.g., `:UDEV class_delete`), please see the [Wiki Command Reference](https://github.com/taku25/UnrealDev.nvim/wiki/Commands).**
+*(Note: Assuming the English page for `Command_ja` is `Commands`)*
 
 ## 🤖 API & Automation Examples
 
 You can access all functions programmatically through the `UnrealDev.api` module.
 
-  * **`require('UnrealDev.api').refresh(opts)`** (UEP)
-  * **`require('UnrealDev.api').build(opts)`** (UBT)
-  * **`require('UnrealDev.api').new_class(opts)`** (UCM)
-  * **`require('UnrealDev.api').start_log(opts)`** (ULG)
-  * **`require('UnrealDev.api').start_session(opts)`** (USH)
-  * ... and all other APIs are available.
-
-### Keymap Examples
-
-Instead of `require`ing `UEP.api` or `UCM.api` individually, you can use `UnrealDev.api`.
-
-#### Open Include File (Open File)
-
-Enhance the standard `gf` command with UEP's intelligent file search.
-
 ```lua
--- In init.lua or keymaps.lua
-vim.keymap.set('n', 'gf', require('UnrealDev.api').open_file, { noremap = true, silent = true, desc = "UDEV: Open include file" })
-```
-
-#### Add Include
-
-Quickly add the \#include directive for the class under the cursor.
-
-```lua
--- In init.lua or keymaps.lua
-vim.keymap.set('n', '<leader>ai', require('UnrealDev.api').add_include, { noremap = true, silent = true, desc = "UDEV: Add #include directive" })
-```
-
-#### Switch Header/Source (Switch H/S)
-
-Assign UCM's switch function to a keymap.
-
-```lua
--- In init.lua or keymaps.lua
+-- (Example) Map UCM's 'switch' function
 vim.keymap.set('n', '<leader>oo', function()
   require('UnrealDev.api').switch_file({ current_file_path = vim.api.nvim_buf_get_name(0) })
 end, { noremap = true, silent = true, desc = "UDEV: Switch H/S file" })
-```
 
-#### Find Files
-
-Create a keymap to quickly find project files.
-
-```lua
--- In init.lua or keymaps.lua
+-- (Example) Map UEP's 'files' function
 vim.keymap.set('n', '<leader>pf', function()
   require('UnrealDev.api').files({})
 end, { desc = "UDEV: Find project files" })
@@ -273,10 +157,14 @@ Unreal Engine related plugins:
       * View UE logs, LiveCoding, stat fps, etc., from Neovim.
   * [USH.nvim](https://github.com/taku25/USH.nvim)
       * Interact with ushell from Neovim.
+  * [USX.nvim](https://github.com/taku25/USX.nvim)
+      * Plugin for highlight settings for tree-sitter-unreal-cpp and tree-sitter-unreal-shader.
   * [neo-tree-unl](https://github.com/taku25/neo-tree-unl.nvim)
       * Display an IDE-like project explorer.
   * [tree-sitter for Unreal Engine](https://github.com/taku25/tree-sitter-unreal-cpp)
       * Provides syntax highlighting using tree-sitter, including UCLASS, etc.
+  * [tree-sitter for Unreal Engine Shader](https://github.com/taku25/tree-sitter-unreal-shader)
+      * Provides syntax highlighting for Unreal Shaders like usf, ush.
 
 ## 📜 License
 
@@ -288,7 +176,7 @@ Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
 to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
+copies of the Software, and to permit persons whom the Software is
 furnished to do so, subject to the following conditions:
 
 The above copyright notice and this permission notice shall be included in all

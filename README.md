@@ -64,12 +64,15 @@ return {
       'taku25/USH.nvim', -- Unreal Shell
       
       -- UI Plugins (Optional)
+      -- picker
       'nvim-telescope/telescope.nvim',
-      'ibhagwan/fzf-lua',
-      'folke/snacks.nvim',
-      'nvim-neo-tree/neo-tree.nvim',
-      'taku25/neo-tree-unl.nvim',
+      -- or 
+      --'ibhagwan/fzf-lua',
+      -- or
+      --'folke/snacks.nvim',
+      -- progress
       'j-hui/fidget.nvim',
+      -- status line
       'nvim-lualine/lualine.nvim',
     },
     -- Configuration specific to UnrealDev.nvim (mainly logging)

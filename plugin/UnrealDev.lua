@@ -118,6 +118,10 @@ builder.create({
         { name = "deps_flag", required = false },
       },
     },
+    ["close_tree"] = {
+      handler = api.close_tree,
+      desc = "UEP: Close a project tree (neo-tree/nvim-tree)",
+    },
     ["module_tree"] = {
       handler = api.module_tree,
       desc = "UEP: Open a project-aware filer (neo-tree/nvim-tree)",

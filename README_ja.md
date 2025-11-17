@@ -2,7 +2,7 @@
 
 # Unreal Engine Development Sweet 💓 Neovim
 
-`UnrealDev.nvim` は、 **Unreal Neovim Plugin Sweet** スイート（`UEP`, `UBT`, `UCM`, `ULG`, `USH`）の機能を、単一のグローバルコマンド `:UDEV` に統合する薄いラッパープラグインです。
+`UnrealDev.nvim` は、 **Unreal Neovim Plugin Sweet** スイート（`UEP`, `UBT`, `UCM`, `ULG`, `USH`, `UEA`）の機能を、単一のグローバルコマンド `:UDEV` に統合する薄いラッパープラグインです。
 
 各プラグインのセットアップを簡素化し、Unreal Engine関連のすべての操作を単一のインターフェースから呼び出せるようにすることを目的としています。
 
@@ -24,49 +24,53 @@
 ## ✨ Features
 
   * **統一されたコマンドインターフェース**:
-      * スイートの全プラグイン機能（プロジェクト探索、ビルド、クラス管理、ログ閲覧、シェル操作）を `:UDEV` コマンドから呼び出せます。
-  * **シンプルな依存関係管理**:
-      * このプラグインをインストールするだけで、Unreal Engine開発に必要なNeovimプラグイン（`UNL`, `UEP`, `UBT`, `UCM`, `ULG`, `USH`）を依存関係として一元管理できます。
+      * 検出されたスイートの全プラグイン機能（プロジェクト探索、ビルド、クラス管理、ログ閲覧、シェル操作、アセット検索）を `:UDEV` コマンドから呼び出せます。
+  * **機能の自動検出**:
+      * インストール済みのスイートプラグイン（`UEP`, `UBT`, `UCM`, `ULG`, `USH`, `UEA`）を`pcall`経由で自動検出し、利用可能なコマンドのみを提供します。
   * **統一されたAPI**:
-      * `require('UnrealDev.api')` を介してすべてのスイートプラグインAPI関数にアクセスでき、キーマップや自動化の作成が容易になります。
+      * `require('UnrealDev.api')` を介して利用可能なすべてのスイートプラグインAPI関数にアクセスでき、キーマップや自動化の作成が容易になります。
 
 ## 🔧 Requirements
 
   * Neovim v0.11.3 or later
   * [**UNL.nvim**](https://github.com/taku25/UNL.nvim) (**必須コアライブラリ**)
-  * **必須スイートプラグイン:**
-      * [**UEP.nvim**](https://github.com/taku25/UEP.nvim)
-      * [**UBT.nvim**](https://github.com/taku25/UBT.nvim)
-      * [**UCM.nvim**](https://github.com/taku25/UCM.nvim)
-      * [**ULG.nvim**](https://github.com/taku25/ULG.nvim)
-      * [**USH.nvim**](https://github.com/taku25/USH.nvim)
+  * **推奨スイートプラグイン:** (これらのうち、必要なものをインストールします)
+      * [**UEP.nvim**](https://github.com/taku25/UEP.nvim) (プロジェクト探索)
+      * [**UEA.nvim**](https://github.com/taku25/UEA.nvim) (アセット(BP)検索)
+      * [**UBT.nvim**](https://github.com/taku25/UBT.nvim) (ビルドツール)
+      * [**UCM.nvim**](https://github.com/taku25/UCM.nvim) (クラス管理)
+      * [**ULG.nvim**](https://github.com/taku25/ULG.nvim) (ログ閲覧)
+      * [**USH.nvim**](https://github.com/taku25/USH.nvim) (Unreal シェル)
 
 **✅ `fd`, `rg` などの外部ツール要件や、`telescope` `neo-tree` などの推奨UIプラグインの完全なリストは、[Wikiのインストールページ](https://github.com/taku25/UnrealDev.nvim/wiki/Installation_ja) を参照してください。**
 
 ## 🚀 Installation
 
 [lazy.nvim](https://github.com/folke/lazy.nvim) でのインストール例です。
-`UnrealDev.nvim` が他のすべてのスイートプラグインに依存するように定義します。
+`UnrealDev.nvim` と、あなたが使いたいスイートプラグインを（依存関係としてではなく）並列にリストアップします。
 
 ```lua
 return {
   {
     'taku25/UnrealDev.nvim',
     -- 開発スイートの全プラグインを依存関係に指定
+    -- (UnrealDevが自動検出するため、実際には 'dependencies' でなくても動作します)
+    -- (ただし、依存関係として定義するのが 'lazy.nvim' の慣習として分かりやすいでしょう)
     dependencies = {
       {
-        'taku25/UNL.nvim', -- Core Library
+        'taku25/UNL.nvim', -- コアライブラリ
         lazy = false,
-      }
-      'taku25/UEP.nvim', -- Project Explorer
-      'taku25/UBT.nvim', -- Build Tool
-      'taku25/UCM.nvim', -- Class Manager
-      'taku25/ULG.nvim', -- Log Viewer
-      'taku25/USH.nvim', -- Unreal Shell
+      },
+      'taku25/UEP.nvim', -- プロジェクト探索
+      'taku25/UEA.nvim', -- アセット(BP)検索
+      'taku25/UBT.nvim', -- ビルドツール
+      'taku25/UCM.nvim', -- クラス管理
+      'taku25/ULG.nvim', -- ログ閲覧
+      'taku25/USH.nvim', -- Unreal シェル
       {
-        'taku25/USX.nvim', -- Color highlight
+        'taku25/USX.nvim', -- カラーハイライト
         lazy=false,
-      }
+      },
       
       -- UI Plugins (Optional)
       'nvim-telescope/telescope.nvim',
@@ -75,7 +79,16 @@ return {
       -- ...
     },
     opts = {
-      -- UnrealDev.nvim 固有の設定 (主にロギング)
+      -- UnrealDev.nvim 固有の設定
+      -- (例: インストールしていないプラグインのセットアップを無効化)
+      setup_modules = {
+        UBT = true,
+        UEP = true,
+        ULG = true,
+        USH = true,
+        UCM = true,
+        UEA = true,
+      },
     },
   },
 
@@ -84,15 +97,16 @@ return {
   -- ---
   { 'taku25/UBT.nvim', opts = { ... } },
   { 'taku25/UEP.nvim', opts = { ... } },
+  { 'taku25/UEA.nvim', opts = { ... } },
   -- ...
 }
-```
+````
 
 **✅ UIプラグインを含む完全なインストール例や、各プラグイン (`UEP`, `UBT` 等) への詳細な `opts` 設定例は、[Wikiのインストールガイド](https://github.com/taku25/UnrealDev.nvim/wiki/Installation_ja) を参照してください。**
 
 ## ⚙️ Configuration
 
-`UnrealDev.nvim` 自体の設定は、上記の `opts` テーブルに示すような `logging` など最小限です。
+`UnrealDev.nvim` 自体の設定は、上記の `setup_modules` テーブルのような最小限のものです。
 
 スイートに含まれる各プラグイン（`UEP`、`UBT` など）の設定は、`lazy.nvim` で各プラグインのスペックに `opts` を渡すことで行います（上記インストール例参照）。
 
@@ -101,47 +115,57 @@ return {
 ## ⚡ Usage
 
 すべてのコマンドは `:UDEV` から始まります。
+インストールされているプラグインのコマンドのみが利用可能です。
 
 ```viml
 " ===== (使用例) ===== "
 
-" プロジェクトを再スキャン
+" プロジェクトを再スキャン (UEPより)
 :UDEV refresh
 
-" ファイルを検索
+" ファイルを検索 (UEPより)
 :UDEV files
 
-" ターゲットをビルド
+" ターゲットをビルド (UBTより)
 :UDEV build
 
-" 新しいクラスを作成
+" 新しいクラスを作成 (UCMより)
 :UDEV new MyNewActor AActor
 
-" ヘッダー/ソースを切り替え
+" ヘッダー/ソースを切り替え (UCMより)
 :UDEV switch
 
-" ログの追跡を開始
+" ログの追跡を開始 (ULGより)
 :UDEV start_log
+
+" Blueprintの使用箇所を検索 (UEAより)
+:UDEV find_bp_usages
 ```
 
 **✅ `UDEV` の全サブコマンド、引数、およびコマンド名の競合（例: `:UDEV class_delete`）に関する詳細は、[Wikiのコマンドリファレンス](https://github.com/taku25/UnrealDev.nvim/wiki/Command_ja) を参照してください。**
 
 ## 🤖 API & Automation Examples
 
-`UnrealDev.api` モジュールを通じて、すべての機能にプログラムからアクセスできます。
+`UnrealDev.api` モジュールを通じて、すべての（利用可能な）機能にプログラムからアクセスできます。
+プラグインがインストールされていない場合、対応するAPI関数は `nil` になります。
 
 ```lua
--- (例) UCMの 'switch' をキーマップ
+-- (例) UCMの 'switch' をキーマップ (安全なnilチェック)
 vim.keymap.set('n', '<leader>oo', function()
-  require('UnrealDev.api').switch_file({ current_file_path = vim.api.nvim_buf_get_name(0) })
-end, { noremap = true, silent = true, desc = "UDEV: Switch H/S file" })
+  local api = require('UnrealDev.api')
+  if api.switch_file then
+    api.switch_file({ current_file_path = vim.api.nvim_buf_get_name(0) })
+  end
+end, { noremap = true, silent = true, desc = "UDEV: H/S ファイル切り替え" })
 
--- (例) UEPの 'files' をキーマップ
+-- (例) UEPの 'files' をキーマップ (安全なnilチェック)
 vim.keymap.set('n', '<leader>pf', function()
-  require('UnrealDev.api').files({})
-end, { desc = "UDEV: Find project files" })
+  local api = require('UnrealDev.api')
+  if api.files then
+    api.files({})
+  end
+end, { desc = "UDEV: プロジェクトファイル検索" })
 ```
-
 
 ## Others
 
@@ -149,6 +173,8 @@ Unreal Engine 関連プラグイン:
 
   * [UEP.nvim](https://github.com/taku25/UEP.nvim)
       * .uproject を解析し、ファイル移動を簡便にします。
+  * [UEA.nvim](https://www.google.com/url?sa=E&source=gmail&q=https://github.com/taku25/UEA.nvim)
+      * C++クラスがどのBlueprintアセットから使用されているかを検索します。
   * [UBT.nvim](https://github.com/taku25/UBT.nvim)
       * Neovim から非同期に Build, GenerateClangDataBase などを使用します。
   * [UCM.nvim](https://github.com/taku25/UCM.nvim)

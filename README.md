@@ -2,7 +2,7 @@
 
 # Unreal Engine Development Sweet 💓 Neovim
 
-`UnrealDev.nvim` is a thin wrapper plugin that integrates the functionality of the **Unreal Neovim Plugin Sweet** suite (`UEP`, `UBT`, `UCM`, `ULG`, `USH`) into a single global command, `:UDEV`.
+`UnrealDev.nvim` is a thin wrapper plugin that integrates the functionality of the **Unreal Neovim Plugin Sweet** suite (`UEP`, `UBT`, `UCM`, `ULG`, `USH`, `UEA`) into a single global command, `:UDEV`.
 
 Its purpose is to simplify the setup of each plugin and allow all Unreal Engine-related operations to be called from a single interface.
 
@@ -24,41 +24,44 @@ Please refer to the wiki first when setting up or customizing.
 ## ✨ Features
 
   * **Unified Command Interface**:
-      * Call all plugin functions from the suite (project exploration, build, class management, log viewing, shell operations) from the `:UDEV` command.
-  * **Simple Dependency Management**:
-      * By installing this plugin, you can centrally manage all Neovim plugins required for Unreal Engine development (`UNL`, `UEP`, `UBT`, `UCM`, `ULG`, `USH`) as dependencies.
+      * Call all detected plugin functions from the suite (project exploration, build, class management, log viewing, shell operations, asset inspection) from the `:UDEV` command.
+  * **Automatic Feature Detection**:
+      * Auto-detects installed suite plugins (`UEP`, `UBT`, `UCM`, `ULG`, `USH`, `UEA`) via `pcall` and provides commands only for those that are available.
   * **Unified API**:
-      * Access all suite plugin API functions via `require('UnrealDev.api')`, making it easy to create keymaps and automation.
+      * Access all available suite plugin API functions via `require('UnrealDev.api')`, making it easy to create keymaps and automation.
 
 ## 🔧 Requirements
 
   * Neovim v0.11.3 or later
   * [**UNL.nvim**](https://github.com/taku25/UNL.nvim) (**Required core library**)
-  * **Required Suite Plugins:**
-      * [**UEP.nvim**](https://github.com/taku25/UEP.nvim)
-      * [**UBT.nvim**](https://github.com/taku25/UBT.nvim)
-      * [**UCM.nvim**](https://github.com/taku25/UCM.nvim)
-      * [**ULG.nvim**](https://github.com/taku25/ULG.nvim)
-      * [**USH.nvim**](https://github.com/taku25/USH.nvim)
+  * **Recommended Suite Plugins:** (Install any or all of these)
+      * [**UEP.nvim**](https://github.com/taku25/UEP.nvim) (Project Explorer)
+      * [**UEA.nvim**](https://github.com/taku25/UEA.nvim) (Asset (BP) Inspector)
+      * [**UBT.nvim**](https://github.com/taku25/UBT.nvim) (Build Tool)
+      * [**UCM.nvim**](https://github.com/taku25/UCM.nvim) (Class Manager)
+      * [**ULG.nvim**](https://github.com/taku25/ULG.nvim) (Log Viewer)
+      * [**USH.nvim**](https://github.com/taku25/USH.nvim) (Unreal Shell)
 
 **✅ For a complete list of external tool requirements (like `fd`, `rg`) and recommended UI plugins (like `telescope`, `neo-tree`), please see the [Wiki Installation Page](https://github.com/taku25/UnrealDev.nvim/wiki/Installation).**
 
 ## 🚀 Installation
 
 Example installation for [lazy.nvim](https://github.com/folke/lazy.nvim).
-Define `UnrealDev.nvim` as dependent on all other suite plugins.
+`UnrealDev.nvim` should be listed, and any suite plugins you want to use should be listed as well (they are no longer hard dependencies, but peers).
 
 ```lua
 return {
   {
     'taku25/UnrealDev.nvim',
-    -- Specify all plugins in the development suite as dependencies
+    -- Define all plugins in the development suite.
+    -- You can remove any plugins you don't use.
     dependencies = {
       {
         'taku25/UNL.nvim', -- Core Library
         lazy = false,
-      }
+      },
       'taku25/UEP.nvim', -- Project Explorer
+      'taku25/UEA.nvim', -- Asset (Blueprint) Inspector
       'taku25/UBT.nvim', -- Build Tool
       'taku25/UCM.nvim', -- Class Manager
       'taku25/ULG.nvim', -- Log Viewer
@@ -66,7 +69,7 @@ return {
       {
         'taku25/USX.nvim', -- Syntax highlight
         lazy=false,
-      }
+      },
       
       -- UI Plugins (Optional)
       'nvim-telescope/telescope.nvim',
@@ -75,7 +78,16 @@ return {
       -- ...
     },
     opts = {
-      -- Configuration specific to UnrealDev.nvim (mainly logging)
+      -- Configuration specific to UnrealDev.nvim
+      -- (e.g., disable setup for plugins you don't have)
+      setup_modules = {
+        UBT = true,
+        UEP = true,
+        ULG = true,
+        USH = true,
+        UCM = true,
+        UEA = true,
+      },
     },
   },
 
@@ -84,15 +96,16 @@ return {
   -- ---
   { 'taku25/UBT.nvim', opts = { ... } },
   { 'taku25/UEP.nvim', opts = { ... } },
+  { 'taku25/UEA.nvim', opts = { ... } },
   -- ...
 }
-```
+````
 
 **✅ For a complete installation example including UI plugins, and detailed `opts` examples for each plugin (`UEP`, `UBT`, etc.), please see the [Wiki Installation Guide](https://github.com/taku25/UnrealDev.nvim/wiki/Installation).**
 
 ## ⚙️ Configuration
 
-Configuration for `UnrealDev.nvim` itself is minimal, such as `logging` settings shown in the `opts` table above.
+Configuration for `UnrealDev.nvim` itself is minimal, such as the `setup_modules` table shown above.
 
 Configuration for each plugin in the suite (`UEP`, `UBT`, etc.) is done by passing `opts` to each plugin's spec in `lazy.nvim` (see installation example above).
 
@@ -100,28 +113,31 @@ Configuration for each plugin in the suite (`UEP`, `UBT`, etc.) is done by passi
 
 ## ⚡ Usage
 
-All commands start with `:UDEV`.
+All commands start with `:UDEV`. Only commands for *installed* plugins will be available.
 
 ```viml
 " ===== (Examples) ===== "
 
-" Rescan the project
+" Rescan the project (from UEP)
 :UDEV refresh
 
-" Find files
+" Find files (from UEP)
 :UDEV files
 
-" Build a target
+" Build a target (from UBT)
 :UDEV build
 
-" Create a new class
+" Create a new class (from UCM)
 :UDEV new MyNewActor AActor
 
-" Switch header/source
+" Switch header/source (from UCM)
 :UDEV switch
 
-" Start tailing a log
+" Start tailing a log (from ULG)
 :UDEV start_log
+
+" Find Blueprint usages (from UEA)
+:UDEV find_bp_usages
 ```
 
 **✅ For details on all `UDEV` subcommands, arguments, and command name conflicts (e.g., `:UDEV class_delete`), please see the [Wiki Command Reference](https://github.com/taku25/UnrealDev.nvim/wiki/Commands).**
@@ -129,17 +145,23 @@ All commands start with `:UDEV`.
 
 ## 🤖 API & Automation Examples
 
-You can access all functions programmatically through the `UnrealDev.api` module.
+You can access all available functions programmatically through the `UnrealDev.api` module. If a plugin is not installed, its API functions will simply be `nil`.
 
 ```lua
--- (Example) Map UCM's 'switch' function
+-- (Example) Map UCM's 'switch' function (safe check)
 vim.keymap.set('n', '<leader>oo', function()
-  require('UnrealDev.api').switch_file({ current_file_path = vim.api.nvim_buf_get_name(0) })
+  local api = require('UnrealDev.api')
+  if api.switch_file then
+    api.switch_file({ current_file_path = vim.api.nvim_buf_get_name(0) })
+  end
 end, { noremap = true, silent = true, desc = "UDEV: Switch H/S file" })
 
--- (Example) Map UEP's 'files' function
+-- (Example) Map UEP's 'files' function (safe check)
 vim.keymap.set('n', '<leader>pf', function()
-  require('UnrealDev.api').files({})
+  local api = require('UnrealDev.api')
+  if api.files then
+    api.files({})
+  end
 end, { desc = "UDEV: Find project files" })
 ```
 
@@ -149,6 +171,8 @@ Unreal Engine related plugins:
 
   * [UEP.nvim](https://github.com/taku25/UEP.nvim)
       * Analyzes .uproject to simplify file navigation.
+  * [UEA.nvim](https://www.google.com/url?sa=E&source=gmail&q=https://github.com/taku25/UEA.nvim)
+      * Finds Blueprint usages of C++ classes.
   * [UBT.nvim](https://github.com/taku25/UBT.nvim)
       * Use Build, GenerateClangDataBase, etc., asynchronously from Neovim.
   * [UCM.nvim](https://github.com/taku25/UCM.nvim)

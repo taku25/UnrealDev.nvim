@@ -41,7 +41,7 @@ function M.setup(user_opts)
           end
         else
           if log then
-            log.warn("Failed to require module: " .. module_name .. " (from setup_modules)")
+            log.trace("Failed to require module: " .. module_name .. " (from setup_modules)")
           end
         end
       else

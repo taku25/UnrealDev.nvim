@@ -8,7 +8,7 @@ local api = require("UnrealDev.api")
 builder.create({
   plugin_name = "UnrealDev",
   cmd_name = "UDEV",
-  desc = "UDEV: Integrated commands for Unreal Engine development (UBT, UEP, UCM, ULG, USH)",
+  desc = "UDEV: Integrated commands for Unreal Engine development (UBT, UEP, UCM, ULG, USH, UEA)",
 
   subcommands = {
     --
@@ -384,6 +384,14 @@ builder.create({
       handler = function(opts) api.direct(opts) end,
       desc = "USH: Run a direct command via UnrealShell.",
       args = {},
+    },
+    ["find_bp_usages"] = {
+      handler = function(opts) api.find_bp_usages(opts) end,
+      bang = true, -- ! を許可
+      desc = "UEA: Find Blueprint usages of a C++ class. Use '!' for class picker.",
+      args = {
+        { name = "class_name", required = false },
+      },
     },
   }
 })

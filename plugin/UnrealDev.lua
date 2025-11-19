@@ -409,6 +409,14 @@ builder.create({
         { name = "query", required = false },
       },
     },
+    ["find_dependencies"] = {
+      handler = function(opts) api.find_dependencies(opts) end,
+      bang = true,
+      desc = "UEA: Find internal dependencies of an asset. Use '!' to pick from Content.",
+      args = {
+        { name = "asset_path", required = false },
+      },
+    },
   }
 })
 

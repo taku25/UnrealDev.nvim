@@ -108,6 +108,7 @@ if uea_ok then
   M.find_bp_usages = uea_api.find_bp_usages
   M.find_references = uea_api.find_references
   M.grep_string = uea_api.grep_string
+  M.find_dependencies = uea_api.find_dependencies
 end
 
 return M

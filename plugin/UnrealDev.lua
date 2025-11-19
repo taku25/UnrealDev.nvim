@@ -417,6 +417,18 @@ builder.create({
         { name = "asset_path", required = false },
       },
     },
+    ["show_in_editor"] = {
+      handler = function(opts) api.show_in_editor(opts) end,
+      bang = true,
+      desc = "UEA: Sync Unreal Editor Content Browser to asset. Use '!' to pick.",
+      args = { { name = "asset_path", required = false } },
+    },
+    -- ["open_in_editor"] = {
+    --   handler = function(opts) api.open_in_editor(opts) end,
+    --   bang = true,
+    --   desc = "UEA: Open asset in Unreal Editor. Use '!' to pick.",
+    --   args = { { name = "asset_path", required = false } },
+    -- },
   }
 })
 

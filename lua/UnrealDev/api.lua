@@ -109,6 +109,8 @@ if uea_ok then
   M.find_references = uea_api.find_references
   M.grep_string = uea_api.grep_string
   M.find_dependencies = uea_api.find_dependencies
+  M.show_in_editor = uea_api.show_in_editor
+  -- M.open_in_editor = uea_api.open_in_editor
 end
 
 return M

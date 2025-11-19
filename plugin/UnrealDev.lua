@@ -429,6 +429,12 @@ builder.create({
     --   desc = "UEA: Open asset in Unreal Editor. Use '!' to pick.",
     --   args = { { name = "asset_path", required = false } },
     -- },
+    ["copy_reference"] = {
+      handler = function(opts) api.copy_reference(opts) end,
+      bang = true,
+      desc = "UEA: Copy Asset Reference path. (Adds _C for Blueprints)",
+      args = {},
+    },
   }
 })
 

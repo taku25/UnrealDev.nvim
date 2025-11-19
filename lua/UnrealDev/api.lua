@@ -112,6 +112,9 @@ if uea_ok then
   M.show_in_editor = uea_api.show_in_editor
   -- M.open_in_editor = uea_api.open_in_editor
   M.copy_reference = uea_api.copy_reference -- [New]
+
+  M.system_open = uea_api.system_open -- [New]
+  M.find_bp_parent = uea_api.find_bp_parent
 end
 
 return M

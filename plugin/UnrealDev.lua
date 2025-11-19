@@ -435,6 +435,19 @@ builder.create({
       desc = "UEA: Copy Asset Reference path. (Adds _C for Blueprints)",
       args = {},
     },
+
+    ["system_open"] = {
+      handler = function(opts) api.system_open(opts) end,
+      bang = true,
+      desc = "UEA: Open the file (or asset location) in system explorer.",
+      args = { { name = "asset_path", required = false } },
+    },
+    ["find_bp_parent"] = {
+      handler = function(opts) api.find_bp_parent(opts) end,
+      bang = true,
+      desc = "UEA: Show parent class information for a binary asset.",
+      args = { { name = "asset_path", required = false } },
+    },
   }
 })
 

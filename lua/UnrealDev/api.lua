@@ -111,6 +111,7 @@ if uea_ok then
   M.find_dependencies = uea_api.find_dependencies
   M.show_in_editor = uea_api.show_in_editor
   -- M.open_in_editor = uea_api.open_in_editor
+  M.copy_reference = uea_api.copy_reference -- [New]
 end
 
 return M

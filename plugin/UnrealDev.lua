@@ -243,6 +243,12 @@ builder.create({
         { name = "class_name", required = false },
       },
     },
+    ["system_open_file"] = {
+      handler = function(opts) api.system_open_file(opts) end,
+      bang = true,
+      desc = "UEP: Open a source/config file in system explorer. Use '!' to pick.",
+      args = { { name = "path", required = false } },
+    },
 
     ["new_class"] = {
       handler = function(opts) api.new_class(opts) end,
@@ -436,10 +442,10 @@ builder.create({
       args = {},
     },
 
-    ["system_open"] = {
-      handler = function(opts) api.system_open(opts) end,
+    ["system_open_asset"] = {
+      handler = function(opts) api.system_open_asset(opts) end,
       bang = true,
-      desc = "UEA: Open the file (or asset location) in system explorer.",
+      desc = "UEA: Open an asset location in system explorer. Use '!' to pick.",
       args = { { name = "asset_path", required = false } },
     },
     ["find_bp_parent"] = {

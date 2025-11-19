@@ -393,6 +393,22 @@ builder.create({
         { name = "class_name", required = false },
       },
     },
+    ["find_references"] = {
+      handler = function(opts) api.find_references(opts) end,
+      bang = true,
+      desc = "UEA: Find assets referencing a specific asset. Use '!' to pick from Content.",
+      args = {
+        { name = "asset_path", required = false },
+      },
+    },
+    ["grep_string"] = {
+      handler = function(opts) api.grep_string(opts) end,
+      bang = true,
+      desc = "UEA: Grep for a string inside assets. Use '!' to prompt for input.",
+      args = {
+        { name = "query", required = false },
+      },
+    },
   }
 })
 

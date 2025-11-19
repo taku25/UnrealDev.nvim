@@ -106,6 +106,8 @@ end
 local uea_ok, uea_api = pcall(require, "UEA.api")
 if uea_ok then
   M.find_bp_usages = uea_api.find_bp_usages
+  M.find_references = uea_api.find_references
+  M.grep_string = uea_api.grep_string
 end
 
 return M

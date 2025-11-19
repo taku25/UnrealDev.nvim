@@ -448,6 +448,11 @@ builder.create({
       desc = "UEA: Show parent class information for a binary asset.",
       args = { { name = "asset_path", required = false } },
     },
+    ["refresh_lens"] = {
+      handler = function(opts) api.refresh_lens() end,
+      desc = "UEA: Manually refresh Code Lens.",
+      args = {},
+    },
   }
 })
 

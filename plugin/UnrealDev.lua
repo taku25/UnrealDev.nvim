@@ -459,6 +459,27 @@ builder.create({
       desc = "UEA: Manually refresh Code Lens.",
       args = {},
     },
+
+    ["explorer_open"] = {
+      handler = function(opts) api.explorer_open() end,
+      desc = "UNX: Open the explorer window.",
+      args = {},
+    },
+    ["explorer_close"] = {
+      handler = function(opts) api.explorer_close() end,
+      desc = "UNX: Refresh the explorer tree.",
+      args = { { name = "asset_path", required = false } },
+    },
+    ["explorer_toggle"] = {
+      handler = function(opts) api.explorer_toggle() end,
+      desc = "UNX: Close the explorer window.",
+      args = { { name = "asset_path", required = false } },
+    },
+    ["explorer_refresh"] = {
+      handler = function(opts) api.explorer_refresh() end,
+      desc = "UNX: Toggle the explorer window.",
+      args = {},
+    },
   }
 })
 

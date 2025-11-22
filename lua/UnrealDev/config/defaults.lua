@@ -8,6 +8,7 @@ local M = {
     USH = true,
     UCM = true,
     UEA = true,
+    UNX = true,
   },
   
   logging = {

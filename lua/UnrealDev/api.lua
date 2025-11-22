@@ -118,4 +118,12 @@ if uea_ok then
   M.refresh_lens = uea_api.refresh_lens
 end
 
+local unx_ok, unx_api = pcall(require, "UNX.api")
+if unx_ok then
+  M.explorer_open = unx_api.explorer_open
+  M.explorer_close = unx_api.explorer_close
+  M.explorer_toggle = unx_api.explorer_toggle
+  M.explorer_refresh = unx_api.explorer_refresh
+end
+
 return M

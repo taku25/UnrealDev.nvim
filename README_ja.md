@@ -2,7 +2,7 @@
 
 # Unreal Engine Development Sweet 💓 Neovim
 
-<img width="1965" height="1439" alt="screenshot-20251122-191958" src="https://github.com/user-attachments/assets/7cea0e6e-dbc7-40ee-9037-8ebee757650a" />
+<img width="2048" height="1342" alt="screenshot-20251122-191958" src="https://github.com/user-attachments/assets/4b26c5e7-461b-4e78-953b-9b2d6d24988e" />
 
 
 `UnrealDev.nvim` は、 **Unreal Neovim Plugin Sweet** スイート（`UEP`, `UBT`, `UCM`, `ULG`, `USH`, `UEA`）の機能を、単一のグローバルコマンド `:UDEV` に統合する薄いラッパープラグインです。

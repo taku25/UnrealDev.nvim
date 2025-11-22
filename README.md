@@ -191,6 +191,8 @@ Unreal Engine related plugins:
       * Interact with ushell from Neovim.
   * [USX.nvim](https://github.com/taku25/USX.nvim)
       * Plugin for highlight settings for tree-sitter-unreal-cpp and tree-sitter-unreal-shader.
+  * [UNX.nvim](https://github.com/taku25/UNX.nvim)
+      *  A dedicated side-panel explorer for navigating project structure, class symbols, and performance insights. 
   * [neo-tree-unl](https://github.com/taku25/neo-tree-unl.nvim)
       * Display an IDE-like project explorer.
   * [tree-sitter for Unreal Engine](https://github.com/taku25/tree-sitter-unreal-cpp)

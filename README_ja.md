@@ -73,7 +73,7 @@
   * **[➡️ 🚀 インストールと設定 (Installation & Setup)](https://github.com/taku25/UnrealDev.nvim/wiki/Installation_ja)**
   * **[➡️ ⚙️ オプション詳細 (Configuration)](https://github.com/taku25/UnrealDev.nvim/wiki/Configuration_ja)**
   * **[➡️ 📖 使い方ガイド (Usage Guide)](https://github.com/taku25/UnrealDev.nvim/wiki/UsageGuide_ja)**
-  * 
+    
 -----
 
 ## ✨ Features

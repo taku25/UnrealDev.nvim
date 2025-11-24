@@ -75,7 +75,8 @@ Please refer to the wiki first when setting up or customizing.
 
   * **[➡️ 🚀 Installation & Setup](https://github.com/taku25/UnrealDev.nvim/wiki/Installation)**
   * **[➡️ ⚙️Configuration](https://github.com/taku25/UnrealDev.nvim/wiki/Configuration)**
-
+  * **[➡️ 📖 Usage Guide](https://github.com/taku25/UnrealDev.nvim/wiki/UsageGuide)**
+  * 
 -----
 
 ## ✨ Features

@@ -7,7 +7,7 @@
 
 
 
-`UnrealDev.nvim` is a thin wrapper plugin that integrates the functionality of the **Unreal Neovim Plugin Sweet** suite (`UEP`, `UBT`, `UCM`, `ULG`, `USH`, `UEA`) into a single global command, `:UDEV`.
+`UnrealDev.nvim` is a thin wrapper plugin that integrates the functionality of the **Unreal Neovim Plugin Sweet** suite (`UEP`, `UBT`, `UCM`, `ULG`, `USH`, `UEA`, `UNX`, `UDB`) into a single global command, `:UDEV`.
 
 Its purpose is to simplify the setup of each plugin and allow all Unreal Engine-related operations to be called from a single interface.
 

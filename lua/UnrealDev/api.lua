@@ -126,4 +126,10 @@ if unx_ok then
   M.explorer_refresh = unx_api.explorer_refresh
 end
 
+local udb_ok, udb_api = pcall(require, "UDB.api")
+if udb_ok then
+  M.run_debug = udb_api.run_debug
+end
+
+
 return M

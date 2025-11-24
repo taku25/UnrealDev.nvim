@@ -480,6 +480,14 @@ builder.create({
       desc = "UNX: Toggle the explorer window.",
       args = {},
     },
+
+    ["run_debug"] = {
+      handler = function(opts) api.run_debug(opts) end,
+      bang = true,
+      desc = "UDB: Start debugging with nvim-dap. Use 'run_debug!' to select target.",
+      args = {},
+    },
+
   }
 })
 

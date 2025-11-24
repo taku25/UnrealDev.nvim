@@ -9,6 +9,7 @@ local M = {
     UCM = true,
     UEA = true,
     UNX = true,
+    UDB = true,
   },
   
   logging = {

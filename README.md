@@ -100,6 +100,7 @@ Please refer to the wiki first when setting up or customizing.
       * [**ULG.nvim**](https://github.com/taku25/ULG.nvim) (Log Viewer)
       * [**USH.nvim**](https://github.com/taku25/USH.nvim) (Unreal Shell)
       * [**UNX.nvim**](https://github.com/taku25/UNX.nvim) (Logical View)
+      * [**UDB.nvim**](https://github.com/taku25/UDB.nvim) (Debug)
 
 **✅ For a complete list of external tool requirements (like `fd`, `rg`) and recommended UI plugins (like `telescope`, `neo-tree`), please see the [Wiki Installation Page](https://github.com/taku25/UnrealDev.nvim/wiki/Installation).**
 
@@ -126,6 +127,7 @@ return {
       'taku25/ULG.nvim', -- Log Viewer
       'taku25/USH.nvim', -- Unreal Shell
       'taku25/UNX.nvim', -- Logical View 
+      'taku25/UDB.nvim', -- Debug
       {
         'taku25/USX.nvim', -- Syntax highlight
         lazy=false,

@@ -97,6 +97,7 @@
       * [**ULG.nvim**](https://github.com/taku25/ULG.nvim) (ログ閲覧)
       * [**USH.nvim**](https://github.com/taku25/USH.nvim) (Unreal シェル)
       * [**UNX.nvim**](https://github.com/taku25/UNX.nvim) (ロジカルビュー)
+      * [**UDB.nvim**](https://github.com/taku25/UDB.nvim) (デバッグ)
 
 **✅ `fd`, `rg` などの外部ツール要件や、`telescope` `neo-tree` などの推奨UIプラグインの完全なリストは、[Wikiのインストールページ](https://github.com/taku25/UnrealDev.nvim/wiki/Installation_ja) を参照してください。**
 
@@ -124,6 +125,7 @@ return {
       'taku25/ULG.nvim', -- ログ閲覧
       'taku25/USH.nvim', -- Unreal シェル
       'taku25/UNX.nvim', -- ロジカルビュー
+      'taku25/UDB.nvim', -- デバッグ
       {
         'taku25/USX.nvim', -- カラーハイライト
         lazy=false,

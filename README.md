@@ -214,6 +214,16 @@ return {
   -- ...
 }
 ````
+## ✅ Verify Installation
+
+After installation, run the following command to ensure all dependencies, external tools (fd, rg), and the custom tree-sitter parser are correctly set up:
+
+```vim
+:checkhealth UnrealDev
+````
+
+If you see any **Errors** or **Warnings**, please follow the advice displayed in the checkhealth output.
+
 
 **✅ For a complete installation example including UI plugins, and detailed `opts` examples for each plugin (`UEP`, `UBT`, etc.), please see the [Wiki Installation Guide](https://github.com/taku25/UnrealDev.nvim/wiki/Installation).**
 

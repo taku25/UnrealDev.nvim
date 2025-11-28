@@ -56,6 +56,10 @@ if uep_ok then
   M.enums = uep_api.enums
   M.config_grep = uep_api.config_grep
   M.system_open_file = uep_api.system_open
+  M.config_tree = uep_api.config_tree
+  M.implement_virtual = uep_api.implement_virtual
+  M.goto_super_def = uep_api.goto_super_def
+  M.goto_super_impl = uep_api.goto_super_impl
 end
 
 --

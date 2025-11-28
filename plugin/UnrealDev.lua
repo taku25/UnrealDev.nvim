@@ -249,6 +249,30 @@ builder.create({
       desc = "UEP: Open a source/config file in system explorer. Use '!' to pick.",
       args = { { name = "path", required = false } },
     },
+    ["config_tree"] = {
+      handler = api.config_tree,
+      desc = "UEP: Open config override explorer. Scope: Game|Engine|Full.",
+      args = {
+        { name = "scope", required = false },
+      },
+    },
+    ["implement_virtual"] = {
+      handler = api.implement_virtual,
+      desc = "UEP: Override a virtual function from the parent class.",
+      args = {
+        { name = "class_name", required = false },
+      },
+    },
+    ["goto_super_def"] = {
+      handler = api.goto_super_def,
+      desc = "UEP: Jump to the parent class definition of the current function.",
+      args = {},
+    },
+    ["goto_super_impl"] = {
+      handler = api.goto_super_impl,
+      desc = "UEP: Jump to parent implementation (Source) of the current function.",
+      args = {},
+    },
 
     ["new_class"] = {
       handler = function(opts) api.new_class(opts) end,

@@ -204,9 +204,9 @@ return {
   -- ---
   -- Individual Plugin Settings (Optional)
   -- ---
-  { 'taku25/UBT.nvim', opts = { ... } },
-  { 'taku25/UEP.nvim', opts = { ... } },
-  { 'taku25/UEA.nvim', opts = { ... } },
+  --{ 'taku25/UBT.nvim', opts = { ... } },
+  --{ 'taku25/UEP.nvim', opts = { ... } },
+  --{ 'taku25/UEA.nvim', opts = { ... } },
   -- ...
 }
 ````

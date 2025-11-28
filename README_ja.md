@@ -122,28 +122,33 @@
 
 ```lua
 return {
+  {
     'taku25/UnrealDev.nvim',
-    -- C++ファイルタイプまたはUDEVコマンドでロードをトリガー
-    ft = { "cpp", "c" }, 
-    cmd = { "UDEV" }, 
-    
+    -- Define all plugins in the development suite.
+    -- You can remove any plugins you don't use.
     dependencies = {
-        -- 推奨UIプラグイン
-        "j-hui/fidget.nvim",
-        "nvim-telescope/telescope.nvim",
-
-        -- コア UnrealDev プラグイン
-        { 'taku25/UNL.nvim', lazy=false}, -- 必須
-        'taku25/UEP.nvim',
-        'taku25/UBT.nvim',
-        'taku25/UCM.nvim',
-        'taku25/USH.nvim',
-        'taku25/ULG.nvim',
-        'taku25/UNX.nvim',
-
-        -- シンタックスとパーサー
-        { 'taku25/USX.nvim', lazy=false }, -- シンタックスハイライト
-        { 
+      {
+        'taku25/UNL.nvim', -- Core Library
+        lazy = false,
+      },
+      'taku25/UEP.nvim', -- Project Explorer
+      'taku25/UEA.nvim', -- Asset (Blueprint) Inspector
+      'taku25/UBT.nvim', -- Build Tool
+      'taku25/UCM.nvim', -- Class Manager
+      'taku25/ULG.nvim', -- Log Viewer
+      'taku25/USH.nvim', -- Unreal Shell
+      'taku25/UNX.nvim', -- Logical View 
+      'taku25/UDB.nvim', -- Debug
+      {
+        'taku25/USX.nvim', -- Syntax highlight
+        lazy=false,
+      },
+      
+      -- UI Plugins (Optional)
+      'nvim-telescope/telescope.nvim',
+      'j-hui/fidget.nvim',
+      'nvim-lualine/lualine.nvim',
+      { 
           'nvim-treesitter/nvim-treesitter',
            branch = "main",
            config = function(_, opts)
@@ -177,10 +182,30 @@ return {
             })
          end
        }
-    }
-    config = function()
-        require("UnrealDev").setup({})
-    end
+      -- ...
+    },
+    opts = {
+      -- Configuration specific to UnrealDev.nvim
+      -- (e.g., disable setup for plugins you don't have)
+      setup_modules = {
+        UBT = true,
+        UEP = true,
+        ULG = true,
+        USH = true,
+        UCM = true,
+        UEA = true,
+        UNX = true,
+      },
+    },
+  },
+
+  -- ---
+  -- Individual Plugin Settings (Optional)
+  -- ---
+  { 'taku25/UBT.nvim', opts = { ... } },
+  { 'taku25/UEP.nvim', opts = { ... } },
+  { 'taku25/UEA.nvim', opts = { ... } },
+  -- ...
 }
 ````
 

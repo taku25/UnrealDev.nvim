@@ -109,7 +109,7 @@ Please refer to the wiki first when setting up or customizing.
 
   * Neovim v0.11.3 or later
   * [**UNL.nvim**](https://github.com/taku25/UNL.nvim) (**Required core library**)
-  * **Recommended Suite Plugins:** (Install any or all of these)
+  * ** Suite Plugins:** (Install any or all of these)
       * [**UEP.nvim**](https://github.com/taku25/UEP.nvim) (Project Explorer)
       * [**UEA.nvim**](https://github.com/taku25/UEA.nvim) (Asset (BP) Inspector)
       * [**UBT.nvim**](https://github.com/taku25/UBT.nvim) (Build Tool)

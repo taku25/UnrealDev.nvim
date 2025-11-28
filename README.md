@@ -13,7 +13,7 @@ Its purpose is to simplify the setup of each plugin and allow all Unreal Engine-
 
 [English](README.md) | [日本語 (Japanese)](README_ja.md)
 
-![GitHub stars](https://img.shields.io/github/stars/taku25/UEP.nvim)
+![GitHub stars](https://img.shields.io/github/stars/taku25/UnrealDev.nvim)
 [![Qiita](https://img.shields.io/badge/Qiita-Weekly%20Updates-55c500?style=flat&logo=qiita)](https://qiita.com/taku25)
 [![Dev.to](https://img.shields.io/badge/dev.to-Weekly%20Updates-0A0A0A?style=flat&logo=dev.to)](https://dev.to/taku25)
 

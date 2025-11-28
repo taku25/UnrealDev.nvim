@@ -17,8 +17,21 @@ Its purpose is to simplify the setup of each plugin and allow all Unreal Engine-
 
 # Introduction to Some Features
 
-
 <table>
+    <tr>
+   <td>
+    <div align=center>
+      <img width="100%" alt="image" src="https://github.com/user-attachments/assets/4cc958a0-515e-4b4d-bfdc-a2b5fde27146" />
+      UDEV refresh
+    </div>
+  </td>
+   <td>
+    <div align=center>
+      <img width="100%" alt="image" src="https://github.com/user-attachments/assets/30596bc6-a2a3-4805-a84e-1d28350da207" />
+      UDEV gencompiledb
+    </div>
+    </td>
+  </tr>
   <tr>
    <td>
     <div align=center>
@@ -29,7 +42,7 @@ Its purpose is to simplify the setup of each plugin and allow all Unreal Engine-
    <td>
     <div align=center>
       <img width="100%" alt="image" src="https://github.com/user-attachments/assets/0f0ef9a4-770e-4900-a5cf-6a29596a90c4" />
-      UDEV tree & symbols
+      UDEV symbols
     </div>
     </td>
   </tr>

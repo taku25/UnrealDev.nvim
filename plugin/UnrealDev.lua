@@ -273,7 +273,12 @@ builder.create({
       desc = "UEP: Jump to parent implementation (Source) of the current function.",
       args = {},
     },
-
+    ["find_module"] = {
+      handler = api.find_module,
+      bang = true,
+      desc = "UEP: Find module name for a class and copy to clipboard.",
+      args = {},
+    },
     ["new_class"] = {
       handler = function(opts) api.new_class(opts) end,
       desc = "UCM: Create a new class, interactively if args are omitted.",

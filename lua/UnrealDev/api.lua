@@ -60,6 +60,7 @@ if uep_ok then
   M.implement_virtual = uep_api.implement_virtual
   M.goto_super_def = uep_api.goto_super_def
   M.goto_super_impl = uep_api.goto_super_impl
+  M.find_module = uep_api.find_module
 end
 
 --

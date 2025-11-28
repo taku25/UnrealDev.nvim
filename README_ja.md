@@ -122,57 +122,65 @@
 
 ```lua
 return {
-  {
     'taku25/UnrealDev.nvim',
-    -- 開発スイートの全プラグインを依存関係に指定
-    -- (UnrealDevが自動検出するため、実際には 'dependencies' でなくても動作します)
-    -- (ただし、依存関係として定義するのが 'lazy.nvim' の慣習として分かりやすいでしょう)
+    -- C++ファイルタイプまたはUDEVコマンドでロードをトリガー
+    ft = { "cpp", "c" }, 
+    cmd = { "UDEV" }, 
+    
     dependencies = {
-      {
-        'taku25/UNL.nvim', -- コアライブラリ
-        lazy = false,
-      },
-      'taku25/UEP.nvim', -- プロジェクト探索
-      'taku25/UEA.nvim', -- アセット(BP)検索
-      'taku25/UBT.nvim', -- ビルドツール
-      'taku25/UCM.nvim', -- クラス管理
-      'taku25/ULG.nvim', -- ログ閲覧
-      'taku25/USH.nvim', -- Unreal シェル
-      'taku25/UNX.nvim', -- ロジカルビュー
-      'taku25/UDB.nvim', -- デバッグ
-      {
-        'taku25/USX.nvim', -- カラーハイライト
-        lazy=false,
-      },
-      
-      -- UI Plugins (Optional)
-      'nvim-telescope/telescope.nvim',
-      'j-hui/fidget.nvim',
-      'nvim-lualine/lualine.nvim',
-      -- ...
-    },
-    opts = {
-      -- UnrealDev.nvim 固有の設定
-      -- (例: インストールしていないプラグインのセットアップを無効化)
-      setup_modules = {
-        UBT = true,
-        UEP = true,
-        ULG = true,
-        USH = true,
-        UCM = true,
-        UEA = true,
-        UNX = true,
-      },
-    },
-  },
+        -- 推奨UIプラグイン
+        "j-hui/fidget.nvim",
+        "nvim-telescope/telescope.nvim",
 
-  -- ---
-  -- 各プラグインの個別設定 (Optional)
-  -- ---
-  { 'taku25/UBT.nvim', opts = { ... } },
-  { 'taku25/UEP.nvim', opts = { ... } },
-  { 'taku25/UEA.nvim', opts = { ... } },
-  -- ...
+        -- コア UnrealDev プラグイン
+        { 'taku25/UNL.nvim', lazy=false}, -- 必須
+        'taku25/UEP.nvim',
+        'taku25/UBT.nvim',
+        'taku25/UCM.nvim',
+        'taku25/USH.nvim',
+        'taku25/ULG.nvim',
+        'taku25/UNX.nvim',
+
+        -- シンタックスとパーサー
+        { 'taku25/USX.nvim', lazy=false }, -- シンタックスハイライト
+        { 
+          'nvim-treesitter/nvim-treesitter',
+           branch = "main",
+           config = function(_, opts)
+             vim.api.nvim_create_autocmd('User', { pattern = 'TSUpdate',
+               callback = function()
+                 local parsers = require('nvim-treesitter.parsers')
+                 parsers.cpp = {
+                   install_info = {
+                     url  = 'https://github.com/taku25/tree-sitter-unreal-cpp',
+                     revision  = '67198f1b35e052c6dbd587492ad53168d18a19a8',
+                   },
+                 }
+                 parsers.ushader = {
+                   install_info = {
+                     url  = 'https://github.com/taku25/tree-sitter-unreal-shader',
+                     revision  = '26f0617475bb5d5accb4d55bd4cc5facbca81bbd',
+                   },
+                 }
+              end
+            })
+            local langs = { "c", "cpp", "ushader","json"  }
+            require("nvim-treesitter").install(langs)
+            local group = vim.api.nvim_create_augroup('MyTreesitter', { clear = true })
+            vim.api.nvim_create_autocmd('FileType', {
+               group = group,
+               pattern = langs,
+               callback = function(args)
+                  vim.treesitter.start(args.buf)
+                  vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+               end,
+            })
+         end
+       }
+    }
+    config = function()
+        require("UnrealDev").setup({})
+    end
 }
 ````
 

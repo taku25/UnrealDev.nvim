@@ -323,7 +323,14 @@ builder.create({
       desc = "UCM: Switch between header and source file.",
       args = {},
     },
-
+    ["copy_include"] = {
+      handler = api.copy_include, -- (api.luaの変更によりUCM側が呼ばれる)
+      bang = true,
+      desc = "UCM: Copy #include path for current file or selected class.",
+      args = {
+        { name = "file_path", required = false },
+      },
+    },
     --
     -- ULG Subcommands (変更なし)
     --

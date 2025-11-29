@@ -215,6 +215,16 @@ return {
 
 **✅ UIプラグインを含む完全なインストール例や、各プラグイン (`UEP`, `UBT` 等) への詳細な `opts` 設定例は、[Wikiのインストールガイド](https://github.com/taku25/UnrealDev.nvim/wiki/Installation_ja) を参照してください。**
 
+
+## ✅ インストールの確認 (Verify Installation)
+
+インストール後、以下のコマンドを実行して、依存プラグイン、外部ツール（fd, rg）、およびカスタムTree-sitterパーサーが正しく設定されているか確認してください。
+
+```vim
+:checkhealth UnrealDev
+````
+
+もし **Error** や **Warning** が表示された場合は、出力されるアドバイスに従って修正してください。
 ## ⚙️ Configuration
 
 `UnrealDev.nvim` 自体の設定は、上記の `setup_modules` テーブルのような最小限のものです。

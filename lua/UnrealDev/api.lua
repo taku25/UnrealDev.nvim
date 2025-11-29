@@ -104,6 +104,7 @@ if ucm_ok then
   M.rename_class = ucm_api.rename_class
   M.move_class = ucm_api.move_class
   M.switch_file = ucm_api.switch_file
+  M.copy_include = ucm_api.copy_include
 end
 
 --

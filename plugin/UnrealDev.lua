@@ -1,5 +1,4 @@
 -- plugin/UnrealDev.lua
--- (デフォルト値の処理を UBT.api 側に任せるバージョン)
 
 local builder = require("UNL.command.builder")
 local api = require("UnrealDev.api")
@@ -15,27 +14,27 @@ builder.create({
     -- UBT Subcommands
     --
     ["build"] = {
-      handler = function(opts) api.build(opts) end, -- (シンプルな呼び出しに戻す)
+      handler = function(opts) api.build(opts) end,
       desc = "UBT: Build a target. Use 'build!' to open a UI picker.",
       bang = true,
       args = {
-        { name = "label", required = false }, -- (default を削除)
+        { name = "label", required = false },
       },
     },
     ["gencompiledb"] = {
-      handler = function(opts) api.gen_compile_db(opts) end, -- (シンプルな呼び出しに戻す)
+      handler = function(opts) api.gen_compile_db(opts) end,
       desc = "UBT: Generate compile_commands.json. Use 'gencompiledb!' to open a UI picker.",
       bang = true,
       args = {
-        { name = "label", required = false }, -- (default を削除)
+        { name = "label", required = false },
       },
     },
     ["genheader"] = {
-      handler = function(opts) api.gen_header(opts) end, -- (シンプルな呼び出しに戻す)
+      handler = function(opts) api.gen_header(opts) end,
       desc = "UBT: Generate headers (UHT). Use 'genheader!' to open a UI picker.",
       bang = true,
       args = {
-        { name = "label", required = false }, -- (default を削除)
+        { name = "label", required = false },
         { name = "module_name", required = false },
       },
     },
@@ -45,11 +44,11 @@ builder.create({
       args = {},
     },
     ["lint"] = {
-      handler = function(opts) api.lint(opts) end, -- (シンプルな呼び出しに戻す)
+      handler = function(opts) api.lint(opts) end,
       desc = "UBT: Run static analyzer for a target.",
       args = {
-        { name = "label", required = false }, -- (default を削除)
-        { name = "lintType", required = false }, -- (default を削除)
+        { name = "label", required = false },
+        { name = "lintType", required = false },
       },
     },
     ["diagnostics"] = {
@@ -67,7 +66,7 @@ builder.create({
     },
 
     --
-    -- UEP Subcommands (変更なし)
+    -- UEP Subcommands
     --
     ["refresh"] = {
       handler = api.refresh,
@@ -279,6 +278,32 @@ builder.create({
       desc = "UEP: Find module name for a class and copy to clipboard.",
       args = {},
     },
+    ["web_doc"] = {
+      handler = api.web_doc,
+      bang = true,
+      desc = "UEP: Search Unreal Engine Web Docs. Use '!' to pick class.",
+      args = {
+        { name = "query", required = false },
+      },
+    },
+    -- ★追加
+    ["build_cs"] = {
+      handler = api.build_cs,
+      bang = true,
+      desc = "UEP: Open Build.cs of the current module. Use '!' to list all.",
+      args = {},
+    },
+    -- ★追加
+    ["target_cs"] = {
+      handler = api.target_cs,
+      bang = true,
+      desc = "UEP: Open Target.cs. Use '!' to include Engine targets.",
+      args = {},
+    },
+
+    --
+    -- UCM Subcommands
+    --
     ["new_class"] = {
       handler = function(opts) api.new_class(opts) end,
       desc = "UCM: Create a new class, interactively if args are omitted.",
@@ -324,13 +349,14 @@ builder.create({
       args = {},
     },
     ["copy_include"] = {
-      handler = api.copy_include, -- (api.luaの変更によりUCM側が呼ばれる)
+      handler = api.copy_include,
       bang = true,
       desc = "UCM: Copy #include path for current file or selected class.",
       args = {
         { name = "file_path", required = false },
       },
     },
+
     --
     -- ULG Subcommands (変更なし)
     --
@@ -526,4 +552,3 @@ builder.create({
 
   }
 })
-

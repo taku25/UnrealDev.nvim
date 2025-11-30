@@ -61,6 +61,9 @@ if uep_ok then
   M.goto_super_def = uep_api.goto_super_def
   M.goto_super_impl = uep_api.goto_super_impl
   M.find_module = uep_api.find_module
+  M.build_cs = uep_api.build_cs
+  M.target_cs = uep_api.target_cs
+  M.web_doc = uep_api.web_doc
 end
 
 --

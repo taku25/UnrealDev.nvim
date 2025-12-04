@@ -291,11 +291,15 @@ end, { desc = "UDEV: Find project files" })
 
 ## Others
 
-Unreal Engine related plugins:
+**Unreal Engine Related Plugins:**
 
+  * [**UnrealDev.nvim**](https://github.com/taku25/UnrealDev.nvim)
+      * **Recommended:** An all-in-one suite to install and manage all these Unreal Engine related plugins at once.
+  * [**UNX.nvim**](https://github.com/taku25/UNX.nvim)
+      * **Standard:** A dedicated explorer and sidebar optimized for Unreal Engine development. It visualizes project structure, class hierarchies, and profiling insights without depending on external file tree plugins.
   * [UEP.nvim](https://github.com/taku25/UEP.nvim)
       * Analyzes .uproject to simplify file navigation.
-  * [UEA.nvim](https://www.google.com/url?sa=E&source=gmail&q=https://github.com/taku25/UEA.nvim)
+  * [UEA.nvim](https://github.com/taku25/UEA.nvim)
       * Finds Blueprint usages of C++ classes.
   * [UBT.nvim](https://github.com/taku25/UBT.nvim)
       * Use Build, GenerateClangDataBase, etc., asynchronously from Neovim.
@@ -307,14 +311,12 @@ Unreal Engine related plugins:
       * Interact with ushell from Neovim.
   * [USX.nvim](https://github.com/taku25/USX.nvim)
       * Plugin for highlight settings for tree-sitter-unreal-cpp and tree-sitter-unreal-shader.
-  * [UNX.nvim](https://github.com/taku25/UNX.nvim)
-      *  A dedicated side-panel explorer for navigating project structure, class symbols, and performance insights. 
   * [neo-tree-unl](https://github.com/taku25/neo-tree-unl.nvim)
-      * Display an IDE-like project explorer.
+      * Integration for [neo-tree.nvim](https://github.com/nvim-neo-tree/neo-tree.nvim) users to display an IDE-like project explorer.
   * [tree-sitter for Unreal Engine](https://github.com/taku25/tree-sitter-unreal-cpp)
       * Provides syntax highlighting using tree-sitter, including UCLASS, etc.
   * [tree-sitter for Unreal Engine Shader](https://github.com/taku25/tree-sitter-unreal-shader)
-      * Provides syntax highlighting for Unreal Shaders like usf, ush.
+      * Provides syntax highlighting for Unreal Shaders like .usf, .ush.
 
 ## 📜 License
 

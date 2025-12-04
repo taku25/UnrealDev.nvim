@@ -133,6 +133,7 @@ if unx_ok then
   M.explorer_close = unx_api.explorer_close
   M.explorer_toggle = unx_api.explorer_toggle
   M.explorer_refresh = unx_api.explorer_refresh
+  M.explorer_is_open = unx_api.explorer_is_open
 end
 
 local udb_ok, udb_api = pcall(require, "UDB.api")

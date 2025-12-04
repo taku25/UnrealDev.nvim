@@ -356,6 +356,12 @@ builder.create({
         { name = "file_path", required = false },
       },
     },
+    ["specifiers"] = {
+      handler = api.specifiers,
+      bang = true, -- ! をつけるとマクロタイプを強制選択
+      desc = "UCM:  Insert Macro Specifiers (UPROPERTY, UFUNCTION, etc). Use '!' to force select macro type.",
+      args = {},
+    },
 
     --
     -- ULG Subcommands (変更なし)

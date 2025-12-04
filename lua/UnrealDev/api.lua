@@ -108,6 +108,7 @@ if ucm_ok then
   M.move_class = ucm_api.move_class
   M.switch_file = ucm_api.switch_file
   M.copy_include = ucm_api.copy_include
+  M.specifiers = ucm_api.specifiers
 end
 
 --

@@ -65,7 +65,7 @@ if uep_ok then
   M.target_cs = uep_api.target_cs
   M.web_doc = uep_api.web_doc
   M.config_files = uep_api.config_files
-  M.shader_files = uep_api.shaders  -- 名前を変更して公開 (UEP側は shaders, UDEV側は shader_files)
+  M.shader_files = uep_api.shader_files
 end
 
 --

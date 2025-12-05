@@ -300,7 +300,21 @@ builder.create({
       desc = "UEP: Open Target.cs. Use '!' to include Engine targets.",
       args = {},
     },
+    ["config_files"] = {
+      handler = api.config_files,
+      desc = "UEP: Find all config files (.ini) in the project.",
+      args = {},
+    },
 
+    ["shader_files"] = {
+      handler = api.shader_files, -- api.lua でマッピングした関数
+      bang = true,
+      desc = "UEP: List and select shader files (.usf, .ush).",
+      args = {
+        { name = "scope", required = false },
+        { name = "deps_flag", required = false },
+      },
+    },
     --
     -- UCM Subcommands
     --

@@ -377,6 +377,11 @@ builder.create({
       args = {},
     },
 
+    ["copy_imp"] = {
+      handler = api.copy_implementation,
+      desc = "UCM: Copy C++ implementation code for the current declaration.",
+      args = {},
+    },
     --
     -- ULG Subcommands (変更なし)
     --
@@ -563,6 +568,19 @@ builder.create({
       args = {},
     },
 
+    ["add_favorites"] = {
+      handler = api.add_favorites,
+      desc = "UNX: Add files/directories to Favorites via picker.",
+      args = {
+        { name = "scope", required = false },
+        { name = "deps_flag", required = false },
+      },
+    },
+    ["favorites_files"] = {
+      handler = api.favorites_files,
+      desc = "UNX: List and open files from Favorites.",
+      args = {},
+    },
     ["run_debug"] = {
       handler = function(opts) api.run_debug(opts) end,
       bang = true,

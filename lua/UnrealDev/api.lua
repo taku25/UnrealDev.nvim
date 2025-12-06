@@ -111,6 +111,7 @@ if ucm_ok then
   M.switch_file = ucm_api.switch_file
   M.copy_include = ucm_api.copy_include
   M.specifiers = ucm_api.specifiers
+  M.copy_implementation = ucm_api.copy_implementation
 end
 
 --
@@ -137,6 +138,9 @@ if unx_ok then
   M.explorer_toggle = unx_api.explorer_toggle
   M.explorer_refresh = unx_api.explorer_refresh
   M.explorer_is_open = unx_api.explorer_is_open
+
+  M.add_favorites = unx_api.add_favorites
+  M.favorites_files = unx_api.favorites_files
 end
 
 local udb_ok, udb_api = pcall(require, "UDB.api")

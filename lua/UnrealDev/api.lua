@@ -66,6 +66,7 @@ if uep_ok then
   M.web_doc = uep_api.web_doc
   M.config_files = uep_api.config_files
   M.shader_files = uep_api.shader_files
+  M.class_symbol = uep_api.class_symbol
 end
 
 --
@@ -112,6 +113,7 @@ if ucm_ok then
   M.copy_include = ucm_api.copy_include
   M.specifiers = ucm_api.specifiers
   M.copy_implementation = ucm_api.copy_implementation
+  M.symbols = ucm_api.symbols
 end
 
 --

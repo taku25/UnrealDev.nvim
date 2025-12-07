@@ -315,6 +315,14 @@ builder.create({
         { name = "deps_flag", required = false },
       },
     },
+    ["class_symbol"] = {
+      handler = api.class_symbol,
+      desc = "UEP: Jump to a symbol in a class (Pick Class -> Pick Symbol).",
+      args = {
+        { name = "scope", required = false },
+        { name = "deps_flag", required = false },
+      },
+    },
     --
     -- UCM Subcommands
     --
@@ -381,6 +389,11 @@ builder.create({
       handler = api.copy_implementation,
       desc = "UCM: Copy C++ implementation code for the current declaration.",
       args = {},
+    },
+    ["symbols"] = {
+      handler = function(opts) api.symbols(opts) end,
+      desc = "UCM: Show symbols (functions/properties) in the current file.",
+      args = { { name = "file_path", required = false } },
     },
     --
     -- ULG Subcommands (変更なし)

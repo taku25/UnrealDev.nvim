@@ -21,17 +21,17 @@ builder.create({
         { name = "label", required = false },
       },
     },
-    ["gencompiledb"] = {
+    ["gen_compile_db"] = {
       handler = function(opts) api.gen_compile_db(opts) end,
-      desc = "UBT: Generate compile_commands.json. Use 'gencompiledb!' to open a UI picker.",
+      desc = "UBT: Generate compile_commands.json. Use 'gen_compile_db!' to open a UI picker.",
       bang = true,
       args = {
         { name = "label", required = false },
       },
     },
-    ["genheader"] = {
+    ["gen_header"] = {
       handler = function(opts) api.gen_header(opts) end,
-      desc = "UBT: Generate headers (UHT). Use 'genheader!' to open a UI picker.",
+      desc = "UBT: Generate headers (UHT). Use 'gen_header!' to open a UI picker.",
       bang = true,
       args = {
         { name = "label", required = false },

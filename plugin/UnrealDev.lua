@@ -286,6 +286,11 @@ builder.create({
         { name = "query", required = false },
       },
     },
+    ["new_project"] = {
+      handler = api.new_project,
+      desc = "UEP: Create a new Unreal Engine project from a template.",
+      args = {},
+    },
     -- ★追加
     ["build_cs"] = {
       handler = api.build_cs,

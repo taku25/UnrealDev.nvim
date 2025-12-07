@@ -67,6 +67,7 @@ if uep_ok then
   M.config_files = uep_api.config_files
   M.shader_files = uep_api.shader_files
   M.class_symbol = uep_api.class_symbol
+  M.new_project = uep_api.new_project
 end
 
 --

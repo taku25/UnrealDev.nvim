@@ -581,6 +581,16 @@ builder.create({
       desc = "UNX: List and open files from Favorites.",
       args = {},
     },
+    ["pending_files"] = {
+      handler = api.pending_files,
+      desc = "UNX: List pending (local) changes.",
+      args = {},
+    },
+    ["unpushed_files"] = {
+      handler = api.unpushed_files,
+      desc = "UNX: List unpushed (remote) files.",
+      args = {},
+    },
     ["run_debug"] = {
       handler = function(opts) api.run_debug(opts) end,
       bang = true,

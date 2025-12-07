@@ -141,6 +141,8 @@ if unx_ok then
 
   M.add_favorites = unx_api.add_favorites
   M.favorites_files = unx_api.favorites_files
+  M.pending_files = unx_api.pending_files
+  M.unpushed_files = unx_api.unpushed_files
 end
 
 local udb_ok, udb_api = pcall(require, "UDB.api")

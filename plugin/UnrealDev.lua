@@ -585,7 +585,11 @@ builder.create({
       desc = "UNX: Toggle the explorer window.",
       args = {},
     },
-
+    ["favorite_current"] = {
+      handler = api.favorite_current,
+      desc = "UNX: Toggle the current buffer in Favorites.",
+      args = {},
+    },
     ["add_favorites"] = {
       handler = api.add_favorites,
       desc = "UNX: Add files/directories to Favorites via picker.",

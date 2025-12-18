@@ -144,6 +144,7 @@ if unx_ok then
 
   M.add_favorites = unx_api.add_favorites
   M.favorites_files = unx_api.favorites_files
+  M.favorite_current = unx_api.favorite_current
   M.pending_files = unx_api.pending_files
   M.unpushed_files = unx_api.unpushed_files
 end

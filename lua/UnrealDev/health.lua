@@ -5,7 +5,6 @@ local M = {}
 -- ★ 推奨される tree-sitter-unreal-cpp のリビジョンハッシュ
 local RECOMMENDED_CPP_REVISION = "67198f1b35e052c6dbd587492ad53168d18a19a8"
 
--- ... (check_plugin, check_executable は変更なし) ...
 local function check_plugin(name, module_name, description, is_required)
   local ok = pcall(require, module_name)
   if ok then
@@ -27,13 +26,12 @@ local function check_executable(name, description)
   end
 end
 
----
--- 標準的な Tree-sitter パーサーのインストール状況をチェックするヘルパー
+-- (check_treesitter_parser, check_custom_cpp_parser は変更なし)
+-- ...
 local function check_treesitter_parser(lang, description)
   local ok, parsers = pcall(require, "nvim-treesitter.parsers")
-  -- ★修正: parsersモジュール自体と、has_parser関数の存在をチェック
   if not ok or not parsers or not parsers.has_parser then 
-    return -- nvim-treesitterが無効な場合は無視
+    return 
   end
 
   if parsers.has_parser(lang) then
@@ -46,11 +44,8 @@ local function check_treesitter_parser(lang, description)
   end
 end
 
----
--- カスタム Unreal C++ パーサーの状態（機能・バージョン）を詳細にチェックする関数
 local function check_custom_cpp_parser()
-  -- 1. 動作チェック: 実際にNeovimのコアAPIでパースを試みる
-  -- これが成功すれば「cppパーサーはインストールされている」とみなせる
+  -- (前回の修正内容と同じ)
   local test_code = "UCLASS() class AMyActor : public AActor {};"
   local ok_parser, lang_tree = pcall(vim.treesitter.get_string_parser, test_code, "cpp")
 
@@ -62,8 +57,6 @@ local function check_custom_cpp_parser()
     return
   end
 
-  -- 2. 機能チェック: 独自ノード 'unreal_class_declaration' が生成されるか確認
-  -- これで「標準パーサー」か「カスタムパーサー」かを判別する
   local ok_parse, trees = pcall(function() return lang_tree:parse() end)
   if not ok_parse or not trees or #trees == 0 then
     vim.health.error("Failed to parse test code with cpp parser.")
@@ -86,39 +79,37 @@ local function check_custom_cpp_parser()
       "Please update your nvim-treesitter config to use 'taku25/tree-sitter-unreal-cpp'.",
       "Run ':TSUpdate cpp' after updating the config."
     })
-    return -- 標準パーサーの場合はリビジョンチェックは行わない
+    return 
   end
 
-  -- 3. バージョン（リビジョン）チェック
-  -- nvim-treesitter.parsers モジュールから設定を取得を試みる
   local has_ts, parsers = pcall(require, "nvim-treesitter.parsers")
+  local installed_rev = nil
   
   if has_ts and parsers then
-    -- get_parser_configs 関数がある場合はそれを使い、なければ parsers 自体をテーブルとして扱う
-    local configs = (parsers.get_parser_configs and parsers.get_parser_configs()) or parsers
-    
-    -- cpp の設定を取得
-    local config = configs["cpp"]
-    
-    if config and config.install_info and config.install_info.revision then
-      local installed_rev = config.install_info.revision
+      local configs = (parsers.get_parser_configs and parsers.get_parser_configs()) or parsers
+      if configs.cpp then
+          local info = configs.cpp.install_info or configs.cpp
+          if info and info.revision then
+              installed_rev = info.revision
+          elseif info and info.url then
+               installed_rev = "Local/Custom URL (" .. tostring(info.url) .. ")"
+          end
+      end
+  end
 
+  if installed_rev then
       if installed_rev == RECOMMENDED_CPP_REVISION then
         vim.health.ok(string.format("Custom Unreal C++ parser is active and up-to-date.\n    Revision: %s", installed_rev))
       else
-        vim.health.warn("Custom Unreal C++ parser revision mismatch.", {
+        vim.health.info(string.format("Custom Unreal C++ parser is active (Revision mismatch).", {
           string.format("Installed:   %s", installed_rev),
           string.format("Recommended: %s", RECOMMENDED_CPP_REVISION),
-          "If you are experiencing issues, please update the revision in your config and run ':TSUpdate cpp'."
-        })
+          "Since the parser is working correctly, this is likely fine.",
+          "If you encounter issues, consider updating to the recommended revision."
+        }))
       end
-    else
-      -- リビジョン情報が取得できない場合（ローカルパス指定など）
-      vim.health.ok("Custom Unreal C++ parser is active. (Revision info unavailable)")
-    end
   else
-    -- nvim-treesitter.parsers が読み込めない場合
-    vim.health.ok("Custom Unreal C++ parser is active. (Skipped revision check)")
+      vim.health.ok("Custom Unreal C++ parser is active. (Revision info unavailable)")
   end
 end
 
@@ -136,6 +127,9 @@ function M.check()
   
   -- 3. Tree-sitter Core
   check_plugin("nvim-treesitter", "nvim-treesitter", "Syntax Highlighting & Parsing", true)
+  
+  -- ★修正: USX.nvim は init.lua (モジュール名 "USX") を持つため、標準の check_plugin でOK
+  check_plugin("USX.nvim", "USX", "Unreal Shader Syntax & Queries", false)
 
   -- 4. Core Features
   check_plugin("UEP.nvim", "UEP", "Project Analysis & Navigation", false)

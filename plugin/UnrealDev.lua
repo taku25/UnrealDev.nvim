@@ -121,14 +121,6 @@ builder.create({
       handler = api.close_tree,
       desc = "UEP: Close a project tree (neo-tree/nvim-tree)",
     },
-    ["module_tree"] = {
-      handler = api.module_tree,
-      desc = "UEP: Open a project-aware filer (neo-tree/nvim-tree)",
-      args = {
-        { name = "module_name", required = false },
-        { name = "deps_flag", required = false },
-      },
-    },
     ["grep"] = {
       handler = api.grep,
       bang = true,
@@ -144,16 +136,6 @@ builder.create({
       args = {
         { name = "module_name", required = false },
       },
-    },
-    ["program_files"] = {
-      handler = api.program_files,
-      desc = "UEP: Find all files in Programs directories.",
-      args = {},
-    },
-    ["program_grep"] = {
-      handler = api.program_grep,
-      desc = "UEP: Live grep within all Programs directories.",
-      args = {},
     },
     ["find_derived"] = {
       handler = api.find_derived,
@@ -176,13 +158,6 @@ builder.create({
       desc = "UEP: Open an include file by searching the project cache.",
       args = {
         { name = "path", required = false },
-      },
-    },
-    ["purge"] = {
-      handler = api.purge,
-      desc = "UEP: Purge the file cache for a specified component (Game/Engine/Plugin).",
-      args = {
-        { name = "component_name", required = false },
       },
     },
     ["cleanup"] = {
@@ -220,15 +195,6 @@ builder.create({
       handler = api.enums,
       bang = true,
       desc = "UEP: Find and jump to a enum definition by name (shows picker if no name).",
-      args = {
-        { name = "category", required = false },
-        { name = "deps_flag", required = false },
-      },
-    },
-    ["config_grep"] = {
-      handler = api.config_grep,
-      bang = true,
-      desc = "UEP: config_grep [game|engine]",
       args = {
         { name = "category", required = false },
         { name = "deps_flag", required = false },

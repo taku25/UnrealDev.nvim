@@ -95,9 +95,10 @@ builder.create({
     ["files"] = {
       handler = api.files,
       bang = true,
-      desc = "UEP: Find files [Category] [--no-deps]",
+      desc = "UEP: Find files [Scope] [Mode] [DepsFlag]",
       args = {
-        { name = "category", required = false },
+        { name = "scope", required = false },
+        { name = "mode", required = false },
         { name = "deps_flag", required = false },
       },
     },
@@ -124,9 +125,11 @@ builder.create({
     ["grep"] = {
       handler = api.grep,
       bang = true,
-      desc = "UEP: Grep [game|engine]",
+      desc = "UEP: Grep [Scope] [Mode] [DepsFlag]",
       args = {
-        { name = "category", required = false },
+        { name = "scope", required = false },
+        { name = "mode", required = false },
+        { name = "deps_flag", required = false },
       },
     },
     ["module_grep"] = {

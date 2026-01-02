@@ -111,6 +111,13 @@ builder.create({
         { name = "dummy_arg", required = false },
       },
     },
+    ["module_tree"] = {
+      handler = api.module_tree,
+      desc = "UEP: Open project filer for a specific module.",
+      args = {
+        { name = "module_name", required = false },
+      },
+    },
     ["tree"] = {
       handler = api.tree,
       desc = "UEP: Open a project-aware filer (neo-tree/nvim-tree)",

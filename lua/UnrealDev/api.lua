@@ -39,7 +39,7 @@ if uep_ok then
   M.module_files = uep_api.module_files
   M.tree = uep_api.tree
   M.close_tree = uep_api.close_tree
-  -- M.module_tree = uep_api.module_tree -- Removed
+  M.module_tree = uep_api.module_tree
   M.grep = uep_api.grep
   M.module_grep = uep_api.module_grep
   M.find_derived = uep_api.find_derived

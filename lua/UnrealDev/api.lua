@@ -31,6 +31,8 @@ end
 --
 local uep_ok, uep_api = pcall(require, "UEP.api")
 if uep_ok then
+  M.start_project = uep_api.start
+  M.stop_project = uep_api.stop
   M.refresh = uep_api.refresh
   M.reload_config = uep_api.reload_config
   M.cd = uep_api.cd

@@ -304,6 +304,18 @@ builder.create({
         { name = "deps_flag", required = false },
       },
     },
+
+    ["start_project"] = {
+      handler = function(opts) api.start_project(opts) end,
+      desc = "UEP: Start project file watcher and indexing.",
+      args = {},
+    },
+    ["stop_project"] = {
+      handler = function() api.stop_project() end,
+      desc = "UEP: Stop project file watcher.",
+      args = {},
+    },
+
     --
     -- UCM Subcommands
     --

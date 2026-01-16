@@ -103,6 +103,8 @@ end
 --
 local ucm_ok, ucm_api = pcall(require, "UCM.api")
 if ucm_ok then
+  M.new_file = ucm_api.new
+  M.new_struct = ucm_api.new_struct
   M.new_class = ucm_api.new_class
   M.delete_class = ucm_api.delete_class
   M.rename_class = ucm_api.rename_class

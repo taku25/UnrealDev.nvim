@@ -319,12 +319,30 @@ builder.create({
     --
     -- UCM Subcommands
     --
+    ["new_file"] = {
+      handler = function(opts) api.new_file(opts) end,
+      desc = "UCM: Create a new class or struct. Lets you select parent from both classes and structs.",
+      args = {
+        { name = "name", required = false },
+        { name = "parent", required = false },
+        { name = "target_dir", required = false },
+      },
+    },
     ["new_class"] = {
       handler = function(opts) api.new_class(opts) end,
       desc = "UCM: Create a new class, interactively if args are omitted.",
       args = {
         { name = "class_name", required = false },
         { name = "parent_class", required = false },
+        { name = "target_dir", required = false },
+      },
+    },
+    ["new_struct"] = {
+      handler = function(opts) api.new_struct(opts) end,
+      desc = "UCM: Create a new struct, interactively if args are omitted.",
+      args = {
+        { name = "struct_name", required = false },
+        { name = "parent_struct", required = false },
         { name = "target_dir", required = false },
       },
     },

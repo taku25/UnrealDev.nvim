@@ -65,6 +65,7 @@ if uep_ok then
   M.shader_files = uep_api.shader_files
   M.class_symbol = uep_api.class_symbol
   M.new_project = uep_api.new_project
+  M.open_in_ide = uep_api.open_in_ide
 end
 
 --

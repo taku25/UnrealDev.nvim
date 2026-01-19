@@ -224,6 +224,11 @@ builder.create({
       desc = "UEP: Open a source/config file in system explorer. Use '!' to pick.",
       args = { { name = "path", required = false } },
     },
+    ["open_in_ide"] = {
+      handler = api.open_in_ide,
+      desc = "UEP: Open current file in external IDE (configured in uep.ide.open_command).",
+      args = {},
+    },
     ["config_tree"] = {
       handler = api.config_tree,
       desc = "UEP: Open config override explorer. Scope: Game|Engine|Full.",

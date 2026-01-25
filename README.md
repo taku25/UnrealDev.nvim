@@ -135,6 +135,7 @@ return {
     dependencies = {
       {
         'taku25/UNL.nvim', -- Core Library
+        build = "cargo build --release --manifest-path scanner/Cargo.toml",
         lazy = false,
       },
       'taku25/UEP.nvim', -- Project Explorer

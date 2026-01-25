@@ -155,6 +155,27 @@ local function check_custom_cpp_parser()
   end
 end
 
+local function check_unl_scanner()
+  local has_unl, unl_scanner = pcall(require, "UNL.scanner")
+  if not has_unl then
+    vim.health.error("Plugin 'taku25/UNL.nvim' not found.", { "Please install 'taku25/UNL.nvim'." })
+    return
+  end
+
+  local binary = unl_scanner.get_binary_path()
+  if binary then
+    vim.health.ok(string.format("UNL Scanner: Found (%s)", binary))
+  else
+    vim.health.error("UNL Scanner binary not found.", {
+      "The Rust-based scanner needs to be compiled.",
+      "If you are using lazy.nvim, add a build hook:",
+      "  { 'taku25/UNL.nvim', build = 'cargo build --release --manifest-path scanner/Cargo.toml' }",
+      "Manual build command:",
+      "  cargo build --release --manifest-path scanner/Cargo.toml"
+    })
+  end
+end
+
 ---
 -- メインのチェック関数
 function M.check()
@@ -166,6 +187,7 @@ function M.check()
 
   -- 2. Core Library
   check_plugin("UNL.nvim", "UNL", "Core Library & Utilities", true)
+  check_unl_scanner()
   
   -- ★ 3. Database (ここにSQLiteチェックを追加)
   check_sqlite()

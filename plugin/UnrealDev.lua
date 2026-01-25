@@ -320,6 +320,16 @@ builder.create({
       desc = "UEP: Stop project file watcher.",
       args = {},
     },
+    ["server_start"] = {
+      handler = function() api.server_start() end,
+      desc = "UEP: Start Neovim remote server.",
+      args = {},
+    },
+    ["server_stop"] = {
+      handler = function() api.server_stop() end,
+      desc = "UEP: Stop Neovim remote server.",
+      args = {},
+    },
 
     --
     -- UCM Subcommands

@@ -66,6 +66,9 @@ if uep_ok then
   M.class_symbol = uep_api.class_symbol
   M.new_project = uep_api.new_project
   M.open_in_ide = uep_api.open_in_ide
+  M.server_start = uep_api.server_start
+  M.server_stop = uep_api.server_stop
+  M.server_is_running = uep_api.server_is_running
 end
 
 --

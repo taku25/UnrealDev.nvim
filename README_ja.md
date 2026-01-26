@@ -317,6 +317,8 @@ Unreal Engine 関連プラグイン:
       * UCLASSなどを含めてtree-sitterの構文木を使ってハイライトができます。
   * [tree-sitter for Unreal Engine Shader](https://github.com/taku25/tree-sitter-unreal-shader)
       * .usfや.ushなどのUnreal Shader用のシンタックスハイライトを提供します。
+  * [blink-cmp-unreal](https://github.com/taku25/blink-cmp-unreal)
+      * blink-cmp用の補完ソースです。UEP.nvimのデータベースとtree-sitterを使用して、Unreal Engine C++のインテリジェントな補完を提供します。
 
 ## 📜 License
 

@@ -314,8 +314,12 @@ end, { desc = "UDEV: Find project files" })
       * Interact with ushell from Neovim.
   * [USX.nvim](https://github.com/taku25/USX.nvim)
       * Plugin for highlight settings for tree-sitter-unreal-cpp and tree-sitter-unreal-shader.
+  * [tree-sitter for Unreal Engine](https://github.com/taku25/tree-sitter-unreal-cpp)
+      * Provides syntax highlighting using tree-sitter, including UCLASS, etc.
   * [tree-sitter for Unreal Engine Shader](https://github.com/taku25/tree-sitter-unreal-shader)
       * Provides syntax highlighting for Unreal Shaders like .usf, .ush.
+  * [blink-cmp-unreal](https://github.com/taku25/blink-cmp-unreal)
+      * A completion source for blink-cmp, providing intelligent suggestions for Unreal Engine C++ using UEP.nvim database and tree-sitter.
 
 ## 📜 License
 

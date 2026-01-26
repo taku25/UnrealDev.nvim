@@ -106,6 +106,7 @@
 ## 🔧 Requirements
 
   * Neovim v0.11.3 or later
+  * **Rust** (UNL.nvimのスキャナをビルドするために必要です)
   * [**UNL.nvim**](https://github.com/taku25/UNL.nvim) (**必須コアライブラリ**)
   * **推奨スイートプラグイン:** (これらのうち、必要なものをインストールします)
       * [**UEP.nvim**](https://github.com/taku25/UEP.nvim) (プロジェクト探索)
@@ -116,6 +117,7 @@
       * [**USH.nvim**](https://github.com/taku25/USH.nvim) (Unreal シェル)
       * [**UNX.nvim**](https://github.com/taku25/UNX.nvim) (ロジカルビュー)
       * [**UDB.nvim**](https://github.com/taku25/UDB.nvim) (デバッグ)
+      * [**blink-cmp-unreal**](https://github.com/taku25/blink-cmp-unreal) (補完)
 
 **✅ `fd`, `rg` などの外部ツール要件や、`telescope` `neo-tree` などの推奨UIプラグインの完全なリストは、[Wikiのインストールページ](https://github.com/taku25/UnrealDev.nvim/wiki/Installation_ja) を参照してください。**
 
@@ -311,8 +313,6 @@ Unreal Engine 関連プラグイン:
       * ushellをNeovimから対話的に操作できるようになります。
   * [USX.nvim](https://github.com/taku25/USX.nvim)
       * tree-sitter-unreal-cpp や tree-sitter-unreal-shader のハイライト設定などを補助するプラグインです。
-  * [neo-tree-unl](https://github.com/taku25/neo-tree-unl.nvim)
-      * もし [neo-tree.nvim](https://github.com/nvim-neo-tree/neo-tree.nvim) をお使いの場合は、こちらを使うことでIDEのようなプロジェクトエクスプローラーを表示できます。
   * [tree-sitter for Unreal Engine](https://github.com/taku25/tree-sitter-unreal-cpp)
       * UCLASSなどを含めてtree-sitterの構文木を使ってハイライトができます。
   * [tree-sitter for Unreal Engine Shader](https://github.com/taku25/tree-sitter-unreal-shader)

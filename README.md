@@ -108,6 +108,7 @@ Please refer to the wiki first when setting up or customizing.
 ## 🔧 Requirements
 
   * Neovim v0.11.3 or later
+  * **Rust** (Required to build the scanner for UNL.nvim)
   * [**UNL.nvim**](https://github.com/taku25/UNL.nvim) (**Required core library**)
   * ** Suite Plugins:** (Install any or all of these)
       * [**UEP.nvim**](https://github.com/taku25/UEP.nvim) (Project Explorer)
@@ -118,6 +119,7 @@ Please refer to the wiki first when setting up or customizing.
       * [**USH.nvim**](https://github.com/taku25/USH.nvim) (Unreal Shell)
       * [**UNX.nvim**](https://github.com/taku25/UNX.nvim) (Logical View)
       * [**UDB.nvim**](https://github.com/taku25/UDB.nvim) (Debug)
+      * [**blink-cmp-unreal**](https://github.com/taku25/blink-cmp-unreal) (Completion)
 
 **✅ For a complete list of external tool requirements (like `fd`, `rg`) and recommended UI plugins (like `telescope`, `neo-tree`), please see the [Wiki Installation Page](https://github.com/taku25/UnrealDev.nvim/wiki/Installation).**
 
@@ -312,10 +314,6 @@ end, { desc = "UDEV: Find project files" })
       * Interact with ushell from Neovim.
   * [USX.nvim](https://github.com/taku25/USX.nvim)
       * Plugin for highlight settings for tree-sitter-unreal-cpp and tree-sitter-unreal-shader.
-  * [neo-tree-unl](https://github.com/taku25/neo-tree-unl.nvim)
-      * Integration for [neo-tree.nvim](https://github.com/nvim-neo-tree/neo-tree.nvim) users to display an IDE-like project explorer.
-  * [tree-sitter for Unreal Engine](https://github.com/taku25/tree-sitter-unreal-cpp)
-      * Provides syntax highlighting using tree-sitter, including UCLASS, etc.
   * [tree-sitter for Unreal Engine Shader](https://github.com/taku25/tree-sitter-unreal-shader)
       * Provides syntax highlighting for Unreal Shaders like .usf, .ush.
 

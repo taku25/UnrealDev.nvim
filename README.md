@@ -84,6 +84,13 @@ many other features
 
 -----
 
+## ⚡ Development Status & Architecture
+
+**Note**
+**UnrealDev.nvim** acts as a **meta-plugin** (wrapper) for the Unreal Engine development suite.
+While this specific repository primarily handles orchestration, the core features are **actively developed and updated frequently** in the individual modules listed below.
+
+
 ## 📚 Detailed Documentation (Wiki)
 
 **Detailed installation instructions, configuration, command lists, and API usage examples are all available on the [GitHub Wiki](https://github.com/taku25/UnrealDev.nvim/wiki).**

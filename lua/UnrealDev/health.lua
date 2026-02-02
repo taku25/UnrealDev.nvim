@@ -3,7 +3,7 @@
 local M = {}
 
 -- ★ 推奨される tree-sitter-unreal-cpp のリビジョンハッシュ
-local RECOMMENDED_CPP_REVISION = "67198f1b35e052c6dbd587492ad53168d18a19a8"
+local RECOMMENDED_CPP_REVISION = "7bbb85f1fcc6e109c90cea2167e88a5a472910d3"
 
 local function check_plugin(name, module_name, description, is_required)
   local ok = pcall(require, module_name)

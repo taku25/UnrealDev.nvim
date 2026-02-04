@@ -181,6 +181,16 @@ builder.create({
     --
     -- UCM Subcommands (Class Manager)
     --
+    ["create_decl"] = {
+      handler = api.create_decl,
+      desc = "UCM: Create header declaration from current implementation.",
+      args = {},
+    },
+    ["create_impl"] = {
+      handler = api.create_impl,
+      desc = "UCM: Create source implementation from current declaration.",
+      args = {},
+    },
     ["new_class"] = {
       handler = function(opts) api.new_class(opts) end,
       desc = "UCM: Create a new class, interactively if args are omitted.",

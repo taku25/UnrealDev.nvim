@@ -119,6 +119,8 @@ if ucm_ok then
   M.delete_class = ucm_api.delete_class
   M.rename_class = ucm_api.rename_class
   M.move_class = ucm_api.move_class
+  M.create_decl = ucm_api.create_decl
+  M.create_impl = ucm_api.create_impl
   M.switch_file = ucm_api.switch_file
   M.copy_include = ucm_api.copy_include
   M.specifiers = ucm_api.specifiers

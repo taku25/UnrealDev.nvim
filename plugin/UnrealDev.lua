@@ -111,6 +111,11 @@ builder.create({
       desc = "UEP: Jump to true definition (skips forward declarations). Use `!` for class picker.",
       args = { { name = "class_name", required = false } },
     },
+    ["goto_impl"] = {
+      handler = api.goto_impl,
+      desc = "UEP: Jump between declaration and implementation.",
+      args = {},
+    },
     ["classes"] = {
       handler = api.classes,
       bang = true,

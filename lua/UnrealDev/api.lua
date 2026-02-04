@@ -59,6 +59,7 @@ if uep_ok then
   
   M.add_include = uep_api.add_include
   M.goto_definition = uep_api.goto_definition
+  M.goto_impl = uep_api.goto_impl
   M.classes = uep_api.classes
   M.structs = uep_api.structs
   M.enums = uep_api.enums

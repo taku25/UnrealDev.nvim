@@ -26,50 +26,6 @@ local function check_executable(name, description)
   end
 end
 
--- ★修正: セクションを切らずに項目だけチェックする関数に変更
-local function check_sqlite()
-  -- 1. プラグイン読み込みチェック
-  local has_sqlite, sqlite = pcall(require, "sqlite")
-  if not has_sqlite then
-    vim.health.error("Plugin 'kkharji/sqlite.lua' not found.", {
-      "This is required for database features.",
-      "Please install 'kkharji/sqlite.lua'."
-    })
-    return
-  end
-  vim.health.ok("Plugin 'kkharji/sqlite.lua' found.")
-
-  -- 2. パス設定の確認 (Windowsのみ)
-  if vim.fn.has("win32") == 1 then
-    local clib_path = vim.g.sqlite_clib_path
-    if clib_path and vim.fn.filereadable(clib_path) == 1 then
-      vim.health.ok("Path configured: " .. clib_path)
-    else
-      vim.health.warn("vim.g.sqlite_clib_path is invalid or not set.", {
-        "Windows often requires explicit path setting in init.lua.",
-        "Example: vim.g.sqlite_clib_path = vim.fn.expand('~/AppData/.../sqlite3.dll')"
-      })
-    end
-  end
-
-  -- 3. 実動作テスト (メモリDBの開閉)
-  local db_ok, err = pcall(function()
-    local db = sqlite.new(":memory:")
-    db:open()
-    db:close()
-  end)
-
-  if db_ok then
-    vim.health.ok("SQLite is working correctly! (In-memory DB test passed)")
-  else
-    vim.health.error("SQLite library loaded but failed to open DB.", {
-      "Error: " .. tostring(err),
-      "Ensure you are using 64-bit sqlite3.dll.",
-      "Check paths in init.lua."
-    })
-  end
-end
-
 local function check_treesitter_parser(lang, description)
   local ok, parsers = pcall(require, "nvim-treesitter.parsers")
   if not ok or not parsers or not parsers.has_parser then 
@@ -189,10 +145,7 @@ function M.check()
   check_plugin("UNL.nvim", "UNL", "Core Library & Utilities", true)
   check_unl_scanner()
   
-  -- ★ 3. Database (ここにSQLiteチェックを追加)
-  check_sqlite()
-
-  -- 4. Tree-sitter Core
+  -- 3. Tree-sitter Core
   check_plugin("nvim-treesitter", "nvim-treesitter", "Syntax Highlighting & Parsing", true)
   
   check_plugin("USX.nvim", "USX", "Unreal Shader Syntax & Queries", false)

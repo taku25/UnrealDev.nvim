@@ -116,6 +116,16 @@ builder.create({
       desc = "UEP: Jump between declaration and implementation.",
       args = {},
     },
+    ["goto_super_def"] = {
+      handler = api.goto_super_def,
+      desc = "UEP: Jump to parent definition.",
+      args = {},
+    },
+    ["goto_super_impl"] = {
+      handler = api.goto_super_impl,
+      desc = "UEP: Jump to parent implementation.",
+      args = {},
+    },
     ["classes"] = {
       handler = api.classes,
       bang = true,

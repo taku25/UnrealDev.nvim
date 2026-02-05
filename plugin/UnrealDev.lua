@@ -99,6 +99,18 @@ builder.create({
       desc = "UEP: Grep [Scope] [Mode] [DepsFlag]",
       args = { { name = "scope", required = false }, { name = "mode", required = false }, { name = "deps_flag", required = false } },
     },
+    ["find_derived"] = {
+      handler = api.find_derived,
+      bang = true,
+      desc = "UEP: Find all derived classes of a specified base class.",
+      args = { { name = "class_name", required = false } },
+    },
+    ["find_parents"] = {
+      handler = api.find_parents,
+      bang = true,
+      desc = "UEP: Find the inheritance chain of a specified class.",
+      args = { { name = "class_name", required = false } },
+    },
     ["add_include"] = {
       handler = api.add_include,
       bang = true,
@@ -114,16 +126,6 @@ builder.create({
     ["goto_impl"] = {
       handler = api.goto_impl,
       desc = "UEP: Jump between declaration and implementation.",
-      args = {},
-    },
-    ["goto_super_def"] = {
-      handler = api.goto_super_def,
-      desc = "UEP: Jump to parent definition.",
-      args = {},
-    },
-    ["goto_super_impl"] = {
-      handler = api.goto_super_impl,
-      desc = "UEP: Jump to parent implementation.",
       args = {},
     },
     ["classes"] = {
@@ -155,9 +157,19 @@ builder.create({
       desc = "UEP: Override a virtual function from the parent class.",
       args = { { name = "class_name", required = false } },
     },
+    ["goto_super"] = {
+      handler = api.goto_super_def,
+      desc = "UEP: Jump to parent definition (Header) or parent class header if no function at cursor.",
+      args = {},
+    },
     ["goto_super_def"] = {
       handler = api.goto_super_def,
       desc = "UEP: Jump to the parent class definition.",
+      args = {},
+    },
+    ["goto_super_impl"] = {
+      handler = api.goto_super_impl,
+      desc = "UEP: Jump to the parent class implementation.",
       args = {},
     },
     ["build_cs"] = {

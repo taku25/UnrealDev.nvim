@@ -174,14 +174,14 @@ return {
                  parsers.cpp = {
                    install_info = {
                      url  = 'https://github.com/taku25/tree-sitter-unreal-cpp',
-                     // Check if need to update to the latest revision
+                     -- Check if need to update to the latest revision
                      revision  = '7bbb85f1fcc6e109c90cea2167e88a5a472910d3',
                    },
                  }
                  parsers.ushader = {
                    install_info = {
                      url  = 'https://github.com/taku25/tree-sitter-unreal-shader',
-                     // Check if need to update to the latest revision
+                     -- Check if need to update to the latest revision
                      revision  = '26f0617475bb5d5accb4d55bd4cc5facbca81bbd',
                    },
                  }

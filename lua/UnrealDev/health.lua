@@ -122,11 +122,21 @@ local function check_unl_scanner()
   if binary then
     vim.health.ok(string.format("UNL Scanner: Found (%s)", binary))
   else
+    -- どこを探したかを表示するためのヒントを作成
+    local source = debug.getinfo(unl_scanner.get_binary_path).source
+    if source:sub(1,1) == "@" then source = source:sub(2) end
+    local plugin_root = vim.fn.fnamemodify(source, ":p:h:h:h:h")
+    local is_win = vim.fn.has("win32") == 1
+    local binary_name = is_win and "unl-scanner.exe" or "unl-scanner"
+    local expected_path = plugin_root .. (is_win and "\\scanner\\target\\release\\" or "/scanner/target/release/") .. binary_name
+
     vim.health.error("UNL Scanner binary not found.", {
+      string.format("Expected path: %s", expected_path),
       "The Rust-based scanner needs to be compiled.",
-      "If you are using lazy.nvim, add a build hook:",
-      "  { 'taku25/UNL.nvim', build = 'cargo build --release --manifest-path scanner/Cargo.toml' }",
-      "Manual build command:",
+      "If you are using lazy.nvim, please check if the build was successful in the :Lazy UI.",
+      "You can manually trigger a build by pressing 'b' on UNL.nvim in the :Lazy menu.",
+      "Or run the manual build command in a terminal:",
+      string.format("  cd %s", plugin_root),
       "  cargo build --release --manifest-path scanner/Cargo.toml"
     })
   end

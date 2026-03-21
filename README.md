@@ -153,7 +153,13 @@ return {
       'taku25/UCM.nvim', -- Class Manager
       'taku25/ULG.nvim', -- Log Viewer
       'taku25/USH.nvim', -- Unreal Shell
-      'taku25/UNX.nvim', -- Logical View 
+      {
+        'taku25/UNX.nvim', -- Logical View 
+        dependencies = {
+          "MunifTanjim/nui.nvim",
+          "nvim-tree/nvim-web-devicons",
+        },
+      },
       'taku25/UDB.nvim', -- Debug
       {
         'taku25/USX.nvim', -- Syntax highlight

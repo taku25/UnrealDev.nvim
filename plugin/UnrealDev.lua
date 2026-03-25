@@ -56,24 +56,32 @@ builder.create({
     -- UBT Subcommands
     --
     ["build"] = {
-      handler = function(opts) api.build(opts) end,
+      handler = function(opts)
+        api.build(opts)
+      end,
       desc = "UBT: Build a target. Use 'build!' to open a UI picker.",
       bang = true,
       args = { { name = "label", required = false } },
     },
     ["gen_project"] = {
-      handler = function(opts) api.gen_project(opts) end,
+      handler = function(opts)
+        api.gen_project(opts)
+      end,
       desc = "UBT: Generate project files.",
       args = {},
     },
     ["run"] = {
-      handler = function(opts) api.run(opts) end,
+      handler = function(opts)
+        api.run(opts)
+      end,
       desc = "UBT: Run the project. Default: Editor. Use --standalone to run the binary.",
       bang = true,
       args = { { name = "standalone_flag", required = false } },
     },
     ["diagnostics"] = {
-      handler = function(opts) api.diagnostics(opts) end,
+      handler = function(opts)
+        api.diagnostics(opts)
+      end,
       desc = "UBT: Show build diagnostics from the last run.",
       args = {},
     },
@@ -85,7 +93,11 @@ builder.create({
       handler = api.files,
       bang = true,
       desc = "UEP: Find files [Scope] [Mode] [DepsFlag]",
-      args = { { name = "scope", required = false }, { name = "mode", required = false }, { name = "deps_flag", required = false } },
+      args = {
+        { name = "scope", required = false },
+        { name = "mode", required = false },
+        { name = "deps_flag", required = false },
+      },
     },
     ["module_files"] = {
       handler = api.module_files,
@@ -97,7 +109,11 @@ builder.create({
       handler = api.grep,
       bang = true,
       desc = "UEP: Grep [Scope] [Mode] [DepsFlag]",
-      args = { { name = "scope", required = false }, { name = "mode", required = false }, { name = "deps_flag", required = false } },
+      args = {
+        { name = "scope", required = false },
+        { name = "mode", required = false },
+        { name = "deps_flag", required = false },
+      },
     },
     ["find_derived"] = {
       handler = api.find_derived,
@@ -147,7 +163,9 @@ builder.create({
       args = {},
     },
     ["system_open_file"] = {
-      handler = function(opts) api.system_open_file(opts) end,
+      handler = function(opts)
+        api.system_open_file(opts)
+      end,
       bang = true,
       desc = "UEP: Open a file in system explorer. Use '!' to pick.",
       args = { { name = "path", required = false } },
@@ -189,6 +207,18 @@ builder.create({
       desc = "UEP: Create a new Unreal Engine project from a template.",
       args = {},
     },
+    ["create_module"] = {
+      handler = function(opts)
+        api.create_module(opts)
+      end,
+      desc = "Create a new class, interactively if args are omitted.",
+      args = {
+        { name = "module_path", required = false },
+        { name = "module_type", required = false },
+        { name = "loading_phase", required = false },
+        { name = "targets", variadic = true },
+      },
+    },
 
     --
     -- UCM Subcommands (Class Manager)
@@ -204,17 +234,26 @@ builder.create({
       args = {},
     },
     ["new_class"] = {
-      handler = function(opts) api.new_class(opts) end,
+      handler = function(opts)
+        api.new_class(opts)
+      end,
       desc = "UCM: Create a new class, interactively if args are omitted.",
       args = { { name = "class_name", required = false }, { name = "parent_class", required = false } },
     },
     ["new_struct"] = {
-      handler = function(opts) api.new_struct(opts) end,
+      handler = function(opts)
+        api.new_struct(opts)
+      end,
       desc = "UCM: Create a new struct, interactively if args are omitted.",
       args = { { name = "struct_name", required = false }, { name = "parent_struct", required = false } },
     },
     ["switch"] = {
-      handler = function() local f = vim.api.nvim_buf_get_name(0); if f ~= "" then api.switch_file({ current_file_path = f }) end end,
+      handler = function()
+        local f = vim.api.nvim_buf_get_name(0)
+        if f ~= "" then
+          api.switch_file({ current_file_path = f })
+        end
+      end,
       desc = "UCM: Switch between header and source file.",
       args = {},
     },
@@ -229,13 +268,17 @@ builder.create({
     -- ULG Subcommands (Logging)
     --
     ["start_log"] = {
-      handler = function(opts) api.start_log(opts) end,
+      handler = function(opts)
+        api.start_log(opts)
+      end,
       desc = "ULG: Start tailing a log file. Use 'start_log!' to pick a file.",
       bang = true,
       args = {},
     },
     ["trace_log"] = {
-      handler = function(opts) api.trace_log(opts) end,
+      handler = function(opts)
+        api.trace_log(opts)
+      end,
       desc = "ULG: Analyze a .utrace file. Use 'trace_log!' to open the file picker.",
       bang = true,
       args = {},
@@ -245,12 +288,16 @@ builder.create({
     -- USH (UnrealShell) Subcommands
     --
     ["ushell_build"] = {
-      handler = function(opts) api.ushell_build(opts) end,
+      handler = function(opts)
+        api.ushell_build(opts)
+      end,
       desc = "USH: Run Build command via UnrealShell.",
       args = {},
     },
     ["ushell_run"] = {
-      handler = function(opts) api.ushell_run(opts) end,
+      handler = function(opts)
+        api.ushell_run(opts)
+      end,
       desc = "USH: Run Run command via UnrealShell.",
       args = {},
     },
@@ -259,13 +306,17 @@ builder.create({
     -- UEA (Asset Tools) Subcommands
     --
     ["find_bp_usages"] = {
-      handler = function(opts) api.find_bp_usages(opts) end,
+      handler = function(opts)
+        api.find_bp_usages(opts)
+      end,
       bang = true,
       desc = "UEA: Find Blueprint usages of a C++ class. Use '!' for class picker.",
       args = { { name = "class_name", required = false } },
     },
     ["show_in_editor"] = {
-      handler = function(opts) api.show_in_editor(opts) end,
+      handler = function(opts)
+        api.show_in_editor(opts)
+      end,
       bang = true,
       desc = "UEA: Sync Unreal Editor Content Browser to asset. Use '!' to pick.",
       args = { { name = "asset_path", required = false } },
@@ -275,17 +326,23 @@ builder.create({
     -- UNX (Explorer) Subcommands
     --
     ["explorer_open"] = {
-      handler = function() api.explorer_open() end,
+      handler = function()
+        api.explorer_open()
+      end,
       desc = "UNX: Open the explorer window.",
       args = {},
     },
     ["explorer_toggle"] = {
-      handler = function() api.explorer_toggle() end,
+      handler = function()
+        api.explorer_toggle()
+      end,
       desc = "UNX: Toggle the explorer window.",
       args = {},
     },
     ["explorer_refresh"] = {
-      handler = function() api.explorer_refresh() end,
+      handler = function()
+        api.explorer_refresh()
+      end,
       desc = "UNX: Refresh the explorer tree.",
       args = {},
     },
@@ -294,5 +351,6 @@ builder.create({
       desc = "UNX: Toggle the current buffer in Favorites.",
       args = {},
     },
-  }
+  },
 })
+

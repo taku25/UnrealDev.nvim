@@ -50,13 +50,13 @@ if uep_ok then
   M.reload_config = uep_api.reload_config
   M.files = uep_api.files
   M.module_files = uep_api.module_files
-  
+
   M.grep = uep_api.grep
   M.module_grep = uep_api.module_grep
   M.find_derived = uep_api.find_derived
   M.find_parents = uep_api.find_parents
   M.open_file = uep_api.open_file
-  
+
   M.add_include = uep_api.add_include
   M.goto_definition = uep_api.goto_definition
   M.goto_impl = uep_api.goto_impl
@@ -76,6 +76,7 @@ if uep_ok then
   M.class_symbol = uep_api.class_symbol
   M.new_project = uep_api.new_project
   M.open_in_ide = uep_api.open_in_ide
+  M.create_module = uep_api.create_module
 end
 
 --
@@ -172,3 +173,4 @@ if udb_ok then
 end
 
 return M
+

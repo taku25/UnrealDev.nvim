@@ -49,6 +49,7 @@ local uep_ok, uep_api = pcall(require, "UEP.api")
 if uep_ok then
   M.reload_config = uep_api.reload_config
   M.files = uep_api.files
+  M.depend_files = uep_api.depend_files
   M.module_files = uep_api.module_files
 
   M.grep = uep_api.grep

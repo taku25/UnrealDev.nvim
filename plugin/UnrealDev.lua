@@ -99,6 +99,14 @@ builder.create({
         { name = "deps_flag", required = false },
       },
     },
+    ["depend_files"] = {
+      handler = api.depend_files,
+      desc = "UEP: List dependent files of the current file. Options: [game|full] [recursive|shallow]",
+      args = {
+        { name = "scope", required = false },
+        { name = "recursive", required = false },
+      },
+    },
     ["module_files"] = {
       handler = api.module_files,
       bang = true,

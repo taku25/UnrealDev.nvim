@@ -89,6 +89,13 @@ builder.create({
     --
     -- UEP Subcommands (Unreal Engine 編集支援)
     --
+    ["open_file"] = {
+      handler = function(opts)
+        api.open_file(opts)
+      end,
+      desc = "UEP: Open a file from #include path under cursor (smart module-aware search).",
+      args = { { name = "path", required = false } },
+    },
     ["files"] = {
       handler = api.files,
       bang = true,

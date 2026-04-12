@@ -142,6 +142,13 @@ builder.create({
       desc = "UEP: Find the inheritance chain of a specified class.",
       args = { { name = "class_name", required = false } },
     },
+    ["find_usage"] = {
+      handler = function(opts)
+        api.find_usage(opts)
+      end,
+      desc = "UEP: Find all usages of the symbol under cursor (streaming).",
+      args = { { name = "symbol_name", required = false } },
+    },
     ["add_include"] = {
       handler = api.add_include,
       bang = true,

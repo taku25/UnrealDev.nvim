@@ -40,6 +40,7 @@ if ubt_ok then
   M.lint = ubt_api.lint
   M.diagnostics = ubt_api.diagnostics
   M.run = ubt_api.run
+  M.cancel_build = ubt_api.cancel_build
 end
 
 --

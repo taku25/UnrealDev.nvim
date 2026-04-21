@@ -85,6 +85,13 @@ builder.create({
       desc = "UBT: Show build diagnostics from the last run.",
       args = {},
     },
+    ["cancel_build"] = {
+      handler = function()
+        api.cancel_build()
+      end,
+      desc = "UBT: Cancel the current UBT job.",
+      args = {},
+    },
 
     --
     -- UEP Subcommands (Unreal Engine 編集支援)

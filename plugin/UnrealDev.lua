@@ -380,6 +380,19 @@ builder.create({
       desc = "UNX: Toggle the current buffer in Favorites.",
       args = {},
     },
+    ["favorites_files"] = {
+      handler = api.favorites_files,
+      desc = "UNX: List and open files from Favorites.",
+      args = {},
+    },
+    ["add_favorites"] = {
+      handler = api.add_favorites,
+      desc = "UNX: Add files/directories to Favorites via picker.",
+      args = {
+        { name = "scope", required = false },
+        { name = "deps_flag", required = false },
+      },
+    },
   },
 })
 

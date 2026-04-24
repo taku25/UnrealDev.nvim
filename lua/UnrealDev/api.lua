@@ -80,6 +80,9 @@ if uep_ok then
   M.new_project = uep_api.new_project
   M.open_in_ide = uep_api.open_in_ide
   M.create_module = uep_api.create_module
+  M.copy_absolute_path = uep_api.copy_absolute_path
+  M.copy_cwd_relative_path = uep_api.copy_cwd_relative_path
+  M.copy_module_path = uep_api.copy_module_path
 end
 
 --

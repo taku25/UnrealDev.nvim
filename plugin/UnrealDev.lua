@@ -292,6 +292,21 @@ builder.create({
       desc = "UCM: Copy #include path for current file or selected class.",
       args = { { name = "file_path", required = false } },
     },
+    ["copy_absolute_path"] = {
+      handler = api.copy_absolute_path,
+      desc = "UEP: Copy absolute path of current file to clipboard.",
+      args = { { name = "file_path", required = false } },
+    },
+    ["copy_cwd_relative_path"] = {
+      handler = api.copy_cwd_relative_path,
+      desc = "UEP: Copy cwd-relative path of current file to clipboard.",
+      args = { { name = "file_path", required = false } },
+    },
+    ["copy_module_path"] = {
+      handler = api.copy_module_path,
+      desc = "UEP: Copy module-relative path (ModuleName/Public/SubDir/File.h) to clipboard.",
+      args = { { name = "file_path", required = false } },
+    },
 
     --
     -- ULG Subcommands (Logging)

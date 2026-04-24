@@ -170,42 +170,52 @@ return {
       'nvim-telescope/telescope.nvim',
       'j-hui/fidget.nvim',
       'nvim-lualine/lualine.nvim',
-      { 
-          'nvim-treesitter/nvim-treesitter',
-           branch = "main",
-           config = function(_, opts)
-             vim.api.nvim_create_autocmd('User', { pattern = 'TSUpdate',
-               callback = function()
-                 local parsers = require('nvim-treesitter.parsers')
-                 parsers.cpp = {
-                   install_info = {
-                     url  = 'https://github.com/taku25/tree-sitter-unreal-cpp',
-                     -- Check if need to update to the latest revision
-                     revision  = '7bbb85f1fcc6e109c90cea2167e88a5a472910d3',
-                   },
-                 }
-                 parsers.ushader = {
-                   install_info = {
-                     url  = 'https://github.com/taku25/tree-sitter-unreal-shader',
-                     -- Check if need to update to the latest revision
-                     revision  = '26f0617475bb5d5accb4d55bd4cc5facbca81bbd',
-                   },
-                 }
-              end
-            })
-            local langs = { "c", "cpp", "ushader","json"  }
-            require("nvim-treesitter").install(langs)
-            local group = vim.api.nvim_create_augroup('MyTreesitter', { clear = true })
-            vim.api.nvim_create_autocmd('FileType', {
-               group = group,
-               pattern = langs,
-               callback = function(args)
-                  vim.treesitter.start(args.buf)
-                  vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-               end,
-            })
-         end
-       }
+      {
+        'romus204/tree-sitter-manager.nvim',
+        opts = {
+          ensure_installed = { "cpp", "ushader", "verse" },
+          highlight        = { "cpp", "ushader", "verse" },
+          border           = "rounded",
+          languages = {
+            cpp = {
+              install_info = {
+                url              = "https://github.com/taku25/tree-sitter-cpp",
+                use_repo_queries = true,
+              },
+            },
+            ushader = {
+              install_info = {
+                url              = 'https://github.com/taku25/tree-sitter-unreal-shader',
+                use_repo_queries = true,
+              },
+            },
+            verse = {
+              install_info = {
+                url              = 'https://github.com/taku25/tree-sitter-verse',
+                use_repo_queries = true,
+              },
+            },
+          },
+        },
+        config = function(_, opts)
+          vim.filetype.add({
+            extension = {
+              verse = "verse",
+              usf   = "ushader",
+              ush   = "ushader",
+            },
+          })
+          require("tree-sitter-manager").setup(opts)
+          local group = vim.api.nvim_create_augroup('MyTreesitter', { clear = true })
+          vim.api.nvim_create_autocmd('FileType', {
+            group    = group,
+            pattern  = opts.highlight,
+            callback = function(args)
+              vim.treesitter.start(args.buf)
+            end,
+          })
+        end,
+      }
       -- ...
     },
     opts = {

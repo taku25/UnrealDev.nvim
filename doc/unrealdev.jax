@@ -1,0 +1,445 @@
+*unrealdev.txt*  UnrealDev.nvim - Neovim 向け統合 Unreal Engine 開発環境
+
+Author:  taku25
+License: MIT
+Repo:    https://github.com/taku25/UnrealDev.nvim
+
+目次                                                      *unrealdev-contents*
+
+1. はじめに ........................................... |unrealdev-introduction|
+2. 必要要件 ........................................... |unrealdev-requirements|
+3. セットアップ ....................................... |unrealdev-setup|
+4. 設定 ............................................... |unrealdev-configuration|
+5. コマンド (:UDEV) ................................... |unrealdev-commands|
+   5.1 サーバー / プロジェクト ........................ |unrealdev-cmd-server|
+   5.2 ビルド (UBT) ................................... |unrealdev-cmd-build|
+   5.3 ファイル / ナビゲーション (UEP) ............... |unrealdev-cmd-uep|
+   5.4 クラスマネージャー (UCM) ....................... |unrealdev-cmd-ucm|
+   5.5 ログビューワー (ULG) .......................... |unrealdev-cmd-ulg|
+   5.6 シェルセッション (USH) ........................ |unrealdev-cmd-ush|
+   5.7 アセットインスペクター (UEA) .................. |unrealdev-cmd-uea|
+   5.8 エクスプローラー UI (UNX) ..................... |unrealdev-cmd-unx|
+6. Lua API ............................................ |unrealdev-api|
+7. ヘルスチェック ..................................... |unrealdev-health|
+8. ライセンス .......................................... |unrealdev-license|
+
+==============================================================================
+1. はじめに                                            *unrealdev-introduction*
+
+UnrealDev.nvim は、Neovim 上の Unreal Engine 開発を支援するプラグイン群を
+一つの統合コマンド `:UDEV` にまとめるメタプラグインです。
+
+インストール済みのサブプラグインを自動検出し、それぞれのセットアップと
+コマンドへの委譲を行います。設定と初期化は `require('UnrealDev').setup`
+の一箇所で完結します。
+
+サブプラグイン一覧 (UNL.nvim 以外はすべてオプション):
+  - UNL.nvim   コアライブラリ & RPC サーバー (必須)
+  - UEP.nvim   プロジェクトエクスプローラー / ファイル・クラス検索
+  - UCM.nvim   C++ クラスマネージャー (作成 / 切替 / リネーム)
+  - UBT.nvim   Unreal Build Tool ラッパー
+  - ULG.nvim   ログビューワー & Unreal Insights
+  - USH.nvim   永続シェルセッション管理
+  - UEA.nvim   アセット & Blueprint インスペクター
+  - UNX.nvim   エクスプローラーサイドパネル UI
+  - UDB.nvim   デバッグアダプター (nvim-dap ラッパー)
+
+各プラグインの詳細ドキュメントは以下を参照してください:
+  :help unl      :help uep      :help ucm      :help ubt
+  :help ulg      :help ush      :help uea      :help UNX
+
+==============================================================================
+2. 必要要件                                            *unrealdev-requirements*
+
+必須:
+  - Neovim >= 0.10
+  - UNL.nvim  (https://github.com/taku25/UNL.nvim)
+  - sqlite.lua (https://github.com/kkharji/sqlite.lua)
+  - Rust ツールチェーン (UNL スキャナーバイナリのビルド)
+
+オプション (対応する `setup_modules` を有効化):
+  - UEP.nvim, UCM.nvim, UBT.nvim, ULG.nvim, USH.nvim, UEA.nvim, UNX.nvim
+  - UDB.nvim + nvim-dap
+  - ピッカー: telescope.nvim | fzf-lua | snacks.nvim
+  - 進捗表示: fidget.nvim
+  - ステータスライン: lualine.nvim
+  - nui.nvim + nvim-web-devicons  (UNX.nvim が必要)
+  - tree-sitter-manager.nvim      (romus204/tree-sitter-manager.nvim)
+
+==============================================================================
+3. セットアップ                                             *unrealdev-setup*
+
+最小構成: >lua
+  require('UnrealDev').setup({})
+<
+
+lazy.nvim を使う場合: >lua
+  {
+    'taku25/UnrealDev.nvim',
+    dependencies = { 'taku25/UNL.nvim', ... },
+    opts = {},
+    config = function(_, opts)
+      require('UnrealDev').setup(opts)
+    end,
+  }
+<
+
+`setup()` はユーザー設定をデフォルト値とマージし (|unrealdev-configuration|
+参照)、`setup_modules` で有効になっている各プラグインの `setup(config)` を
+`pcall` で呼び出します。
+
+==============================================================================
+4. 設定                                                *unrealdev-configuration*
+
+`setup()` にテーブルを渡します。省略したキーはデフォルト値にフォールバック
+されます。
+
+>lua
+  require('UnrealDev').setup({
+
+    -- 自動セットアップするサブプラグインの制御。
+    -- false に設定するとそのプラグインの setup() をスキップします。
+    setup_modules = {
+      UBT = true,
+      UEP = true,
+      ULG = true,
+      USH = true,
+      UCM = true,
+      UEA = true,
+      UNX = true,
+      UDB = true,
+    },
+
+    -- ロギング設定 (UNL.logging に渡される)
+    logging = {
+      level  = "off",
+      echo   = { level = "off" },
+      notify = { level = "off" },
+      file   = { enable = true, filename = "udev.log" },
+    },
+
+    -- UI ピッカー / 進捗表示バックエンドの選択
+    ui = {
+      picker = {
+        mode   = "auto",
+        prefer = { "telescope", "fzf-lua", "native" },
+      },
+      progress = {
+        mode   = "auto",
+        prefer = { "fidget", "generic_status", "window" },
+      },
+    },
+
+    -- キャッシュディレクトリ名 (stdpath("data") 以下)
+    cache = { dirname = "UnrealDev" },
+
+    -- Unreal Engine ルートパスの上書き (nil = 自動検出)
+    engine_path = nil,
+
+    -- ビルドプリセット (UBT.nvim に渡される)
+    presets = {
+      { name = "Win64DebugGame",           Platform = "Win64", IsEditor = false, Configuration = "DebugGame"   },
+      { name = "Win64Develop",             Platform = "Win64", IsEditor = false, Configuration = "Development" },
+      { name = "Win64Shipping",            Platform = "Win64", IsEditor = false, Configuration = "Shipping"    },
+      { name = "Win64DebugGameWithEditor", Platform = "Win64", IsEditor = true,  Configuration = "DebugGame"   },
+      { name = "Win64DevelopWithEditor",   Platform = "Win64", IsEditor = true,  Configuration = "Development" },
+    },
+    preset_target = "Win64DevelopWithEditor",
+
+    -- クックプリセット (USH.nvim)
+    cook_presets = {
+      { name = "Cook Game (Win64)",          platform = "win64", type = "game",   options = ""           },
+      { name = "Cook Game OnTheFly (Win64)", platform = "win64", type = "game",   options = "--onthefly" },
+      { name = "Cook Client (Win64)",        platform = "win64", type = "client", options = ""           },
+    },
+
+    -- 実行プリセット (UBT / USH)
+    run_presets = {
+      { name = "Run Editor",                   mode = "editor",  args = ""                  },
+      { name = "Run Game",                     mode = "game",    args = ""                  },
+      { name = "Run Game (Debug)",             mode = "game",    args = "--attach"           },
+      { name = "Run Server",                   mode = "server",  args = ""                  },
+      { name = "Run Client",                   mode = "client",  args = ""                  },
+      { name = "Run Program (UnrealInsights)", mode = "program", args = "UnrealInsights"    },
+    },
+
+    -- UAT プリセット (USH.nvim)
+    uat_presets = { ... },
+
+    -- ステージプリセット (USH.nvim)
+    stage_presets = { ... },
+
+    -- Perforce サブコマンド (USH.nvim)
+    p4_subcommands = { ... },
+  })
+<
+
+==============================================================================
+5. コマンド (:UDEV)                                      *unrealdev-commands*
+
+すべての機能は `:UDEV` コマンドから利用できます。
+サブコマンドと引数はタブ補完に対応しています。
+
+使い方: `:UDEV <サブコマンド> [引数]`
+
+------------------------------------------------------------------------------
+5.1 サーバー / プロジェクト                             *unrealdev-cmd-server*
+
+:UDEV setup                                              *UDEV-setup*
+    データベースを初期化し、現在のプロジェクトをサーバーに登録します。
+
+:UDEV start                                              *UDEV-start*
+    UNL RPC サーバーとファイル監視を開始します。
+
+:UDEV stop                                               *UDEV-stop*
+    UNL RPC サーバーを停止します。
+
+:UDEV refresh[!] [type]                                  *UDEV-refresh*
+    プロジェクトデータベースを更新します。`!` でフルスキャンを実行します。
+    type: "game" | "engine" | "full"
+
+:UDEV watch                                              *UDEV-watch*
+    現在のプロジェクトのファイル監視を開始します。
+
+:UDEV cleanup                                            *UDEV-cleanup*
+    現在のプロジェクトのデータベースレコードをすべて削除します。
+
+:UDEV status                                             *UDEV-status*
+    サーバーとプロジェクトのステータスを表示します。
+
+------------------------------------------------------------------------------
+5.2 ビルド (UBT)                                         *unrealdev-cmd-build*
+
+:UDEV build[!] [label]                                   *UDEV-build*
+    指定したプリセットターゲットをビルドします。`!` でピッカーを開きます。
+
+:UDEV gen_project                                        *UDEV-gen_project*
+    プロジェクトファイル (.sln / Makefile) を生成します。
+
+:UDEV run[!] [--standalone]                              *UDEV-run*
+    プロジェクトを実行します。デフォルトはエディター起動。
+    `--standalone` でバイナリを直接実行します。
+    `!` で実行プリセットのピッカーを開きます。
+
+:UDEV diagnostics                                        *UDEV-diagnostics*
+    直前のビルドの診断情報を表示します。
+
+:UDEV cancel_build                                       *UDEV-cancel_build*
+    実行中の UBT ジョブをキャンセルします。
+
+------------------------------------------------------------------------------
+5.3 ファイル / ナビゲーション (UEP)                       *unrealdev-cmd-uep*
+
+:UDEV files[!] [scope] [mode] [deps_flag]                *UDEV-files*
+    ファイルを検索します。`!` で追加オプションを使用できます。
+    scope: "game" | "engine" | "full" | "module:<名前>"
+    mode:  "files" | "grep"
+
+:UDEV grep[!] [scope] [mode] [deps_flag]                 *UDEV-grep*
+    プロジェクトファイルをサーバーサイドで高速 grep します。
+
+:UDEV classes[!]                                         *UDEV-classes*
+    クラス名でクラス定義を検索してジャンプします。
+
+:UDEV structs[!]                                         *UDEV-structs*
+    構造体定義を検索してジャンプします。
+
+:UDEV enums[!]                                           *UDEV-enums*
+    enum 定義を検索してジャンプします。
+
+:UDEV find_derived[!] [class_name]                       *UDEV-find_derived*
+    指定したベースクラスのすべての派生クラスを検索します。
+
+:UDEV find_parents[!] [class_name]                       *UDEV-find_parents*
+    指定したクラスの継承チェーン全体を表示します。
+
+:UDEV find_usage [symbol_name]                           *UDEV-find_usage*
+    カーソル下のシンボルの全使用箇所を検索します (ストリーミング)。
+
+:UDEV add_include[!] [class_name]                        *UDEV-add_include*
+    指定クラスの `#include` ディレクティブを挿入します。
+
+:UDEV open_file [path]                                   *UDEV-open_file*
+    カーソル下の `#include` パスからファイルを開きます。
+
+:UDEV goto_definition[!] [class_name]                    *UDEV-goto_definition*
+    真の定義へジャンプします (前方宣言をスキップ)。
+    `!` でクラスピッカーを使用します。
+
+:UDEV goto_impl                                          *UDEV-goto_impl*
+    宣言ファイル (.h) と実装ファイル (.cpp) を切り替えます。
+
+:UDEV goto_super                                         *UDEV-goto_super*
+    親クラスのヘッダーへジャンプします。
+
+:UDEV goto_super_def                                     *UDEV-goto_super_def*
+    親クラスの定義へジャンプします。
+
+:UDEV goto_super_impl                                    *UDEV-goto_super_impl*
+    親クラスの実装へジャンプします。
+
+:UDEV implement_virtual [class_name]                     *UDEV-implement_virtual*
+    親クラスの仮想関数をオーバーライドします。
+
+:UDEV depend_files [scope] [recursive]                   *UDEV-depend_files*
+    現在のファイルの依存ファイルを一覧表示します。
+    scope: "game" | "full"    recursive: "recursive" | "shallow"
+
+:UDEV module_files[!] [module_name]                      *UDEV-module_files*
+    特定モジュールに属するすべてのファイルを一覧表示します。
+
+:UDEV build_cs[!]                                        *UDEV-build_cs*
+    Build.cs ファイルを開きます。`!` ですべての Build.cs を一覧表示します。
+
+:UDEV target_cs[!]                                       *UDEV-target_cs*
+    Target.cs ファイルを開きます。`!` でエンジン側も含めて一覧表示します。
+
+:UDEV new_project                                        *UDEV-new_project*
+    テンプレートから新しい Unreal Engine プロジェクトを作成します。
+
+:UDEV create_module [path] [type] [loading_phase] [targets...]
+                                                         *UDEV-create_module*
+    新しい Unreal モジュールを作成します
+    (Build.cs + ディレクトリ構造を自動生成)。
+
+:UDEV system_open_file[!] [path]                         *UDEV-system_open_file*
+    ファイルをシステムのファイルエクスプローラーで開きます。`!` でピッカー。
+
+:UDEV copy_absolute_path [file_path]                     *UDEV-copy_absolute_path*
+    現在のファイルの絶対パスをクリップボードにコピーします。
+
+:UDEV copy_cwd_relative_path [file_path]                 *UDEV-copy_cwd_relative_path*
+    現在のファイルの cwd 相対パスをクリップボードにコピーします。
+
+:UDEV copy_module_path [file_path]                       *UDEV-copy_module_path*
+    モジュール相対パス (ModuleName/Public/.../File.h) をクリップボードに
+    コピーします。
+
+------------------------------------------------------------------------------
+5.4 クラスマネージャー (UCM)                             *unrealdev-cmd-ucm*
+
+:UDEV new_class [name] [parent]                          *UDEV-new_class*
+    新しい C++ クラスを作成します。引数省略時はウィザードを開きます。
+
+:UDEV new_struct [name] [parent]                         *UDEV-new_struct*
+    新しい C++ 構造体を作成します。
+
+:UDEV switch                                             *UDEV-switch*
+    現在のバッファのヘッダーファイルとソースファイルを切り替えます。
+
+:UDEV create_decl                                        *UDEV-create_decl*
+    現在の実装ファイルからヘッダー宣言を生成します。
+
+:UDEV create_impl                                        *UDEV-create_impl*
+    現在の宣言ファイルからソース実装を生成します。
+
+:UDEV copy_include[!] [file_path]                        *UDEV-copy_include*
+    現在のファイルまたは選択したクラスの `#include` パスをコピーします。
+
+------------------------------------------------------------------------------
+5.5 ログビューワー (ULG)                                 *unrealdev-cmd-ulg*
+
+:UDEV start_log[!]                                       *UDEV-start_log*
+    ログファイルのテイリングを開始します。`!` でファイルを選択します。
+
+:UDEV trace_log[!]                                       *UDEV-trace_log*
+    `.utrace` ファイル (Unreal Insights) を解析します。`!` でファイル選択。
+
+------------------------------------------------------------------------------
+5.6 シェルセッション (USH)                               *unrealdev-cmd-ush*
+
+:UDEV ushell_build                                       *UDEV-ushell_build*
+    UnrealShell 経由でビルドコマンドを実行します。
+
+:UDEV ushell_run                                         *UDEV-ushell_run*
+    UnrealShell 経由でプロジェクトを実行します。
+
+------------------------------------------------------------------------------
+5.7 アセットインスペクター (UEA)                         *unrealdev-cmd-uea*
+
+:UDEV find_bp_usages[!] [class_name]                     *UDEV-find_bp_usages*
+    C++ クラスの Blueprint 使用箇所を検索します。`!` でクラスピッカーを開きます。
+
+:UDEV show_in_editor[!] [asset_path]                     *UDEV-show_in_editor*
+    Unreal Editor のコンテンツブラウザをアセットに同期します。`!` でピッカー。
+
+------------------------------------------------------------------------------
+5.8 エクスプローラー UI (UNX)                            *unrealdev-cmd-unx*
+
+:UDEV explorer_open                                      *UDEV-explorer_open*
+    UNX エクスプローラーサイドパネルを開きます。
+
+:UDEV explorer_toggle                                    *UDEV-explorer_toggle*
+    UNX エクスプローラーサイドパネルのトグルを切り替えます。
+
+:UDEV explorer_refresh                                   *UDEV-explorer_refresh*
+    エクスプローラーツリーを更新します。
+
+:UDEV favorite_current                                   *UDEV-favorite_current*
+    現在のバッファをお気に入りリストに追加/削除します。
+
+:UDEV favorites_files                                    *UDEV-favorites_files*
+    お気に入りリストのファイルを一覧表示して開きます。
+
+:UDEV add_favorites [scope] [deps_flag]                  *UDEV-add_favorites*
+    ピッカーからファイル/ディレクトリをお気に入りに追加します。
+
+==============================================================================
+6. Lua API                                                    *unrealdev-api*
+
+`require('UnrealDev.api')` は、すべてのサブプラグイン機能をフラットなテーブル
+として公開します。すべてのエントリは `pcall` でロードされるため、オプションの
+プラグインが未インストールでもエラーにはなりません。
+
+>lua
+  local api = require('UnrealDev.api')
+
+  -- サーバーを起動
+  api.start_server()
+
+  -- プリセット指定でビルド
+  api.build({ label = "Win64DevelopWithEditor" })
+
+  -- クラスピッカーを開く
+  api.classes()
+
+  -- エクスプローラーをトグル
+  api.explorer_toggle()
+<
+
+関数の全一覧はリポジトリの `lua/UnrealDev/api.lua` を参照するか、
+各プラグインのドキュメントをご覧ください:
+  :help unl-api   :help uep-api   :help ucm-api   :help ubt-api
+
+==============================================================================
+7. ヘルスチェック                                          *unrealdev-health*
+
+`:checkhealth UnrealDev` を実行すると、必須および任意の依存関係が
+正しくインストール・設定されているかを確認できます。
+
+==============================================================================
+8. ライセンス                                               *unrealdev-license*
+
+MIT License
+
+Copyright (c) 2025 taku25
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+vim:tw=78:ts=8:ft=help:norl:

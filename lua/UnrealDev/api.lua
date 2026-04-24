@@ -58,6 +58,7 @@ if uep_ok then
   M.find_derived = uep_api.find_derived
   M.find_parents = uep_api.find_parents
   M.find_usage = uep_api.find_usage
+  M.find_includers = uep_api.find_includers
   M.open_file = uep_api.open_file
 
   M.add_include = uep_api.add_include

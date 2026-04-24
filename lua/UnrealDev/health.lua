@@ -2,9 +2,6 @@
 
 local M = {}
 
--- ★ 推奨される tree-sitter-unreal-cpp のリビジョンハッシュ
-local RECOMMENDED_CPP_REVISION = "7bbb85f1fcc6e109c90cea2167e88a5a472910d3"
-
 local function check_plugin(name, module_name, description, is_required)
   local ok = pcall(require, module_name)
   if ok then
@@ -26,31 +23,28 @@ local function check_executable(name, description)
   end
 end
 
+--- パーサーが実際にロードできるかを Neovim ネイティブ API で確認します。
+--- nvim-treesitter / tree-sitter-manager のどちらでインストールしても動作します。
 local function check_treesitter_parser(lang, description)
-  local ok, parsers = pcall(require, "nvim-treesitter.parsers")
-  if not ok or not parsers or not parsers.has_parser then 
-    return 
-  end
-
-  if parsers.has_parser(lang) then
+  local ok = pcall(vim.treesitter.language.inspect, lang)
+  if ok then
     vim.health.ok(string.format("Tree-sitter parser '%s': Installed (%s)", lang, description))
   else
-    vim.health.warn(string.format("Tree-sitter parser '%s': Not found", lang), {
-      string.format("This parser is required for %s.", description),
-      string.format("Run ':TSInstall %s' to install it.", lang)
+    vim.health.warn(string.format("Tree-sitter parser '%s': Not installed", lang), {
+      string.format("Required for %s.", description),
+      string.format("Add '%s' to ensure_installed in your tree-sitter-manager config.", lang),
     })
   end
 end
 
 local function check_custom_cpp_parser()
-  -- (変更なし)
   local test_code = "UCLASS() class AMyActor : public AActor {};"
   local ok_parser, lang_tree = pcall(vim.treesitter.get_string_parser, test_code, "cpp")
 
   if not ok_parser or not lang_tree then
     vim.health.error("Tree-sitter 'cpp' parser is missing or broken.", {
       "Neovim could not load the cpp parser.",
-      "Please run ':TSInstall cpp' (or update it)."
+      "Check that 'cpp' is in ensure_installed of your tree-sitter-manager config.",
     })
     return
   end
@@ -63,7 +57,7 @@ local function check_custom_cpp_parser()
 
   local root = trees[1]:root()
   local is_unreal_parser = false
-  
+
   for child in root:iter_children() do
     if child:type() == "unreal_class_declaration" then
       is_unreal_parser = true
@@ -74,41 +68,13 @@ local function check_custom_cpp_parser()
   if not is_unreal_parser then
     vim.health.warn("Standard C++ parser detected. (Not the Unreal-patched version)", {
       "Features like 'Goto Super', 'Symbols View', and 'Implement Virtual' require the custom parser.",
-      "Please update your nvim-treesitter config to use 'taku25/tree-sitter-unreal-cpp'.",
-      "Run ':TSUpdate cpp' after updating the config."
+      "Set the cpp url in tree-sitter-manager to 'https://github.com/taku25/tree-sitter-cpp'.",
+      "  cpp = { install_info = { url = 'https://github.com/taku25/tree-sitter-cpp', use_repo_queries = true } }",
     })
-    return 
+    return
   end
 
-  local has_ts, parsers = pcall(require, "nvim-treesitter.parsers")
-  local installed_rev = nil
-  
-  if has_ts and parsers then
-      local configs = (parsers.get_parser_configs and parsers.get_parser_configs()) or parsers
-      if configs.cpp then
-          local info = configs.cpp.install_info or configs.cpp
-          if info and info.revision then
-              installed_rev = info.revision
-          elseif info and info.url then
-               installed_rev = "Local/Custom URL (" .. tostring(info.url) .. ")"
-          end
-      end
-  end
-
-  if installed_rev then
-      if installed_rev == RECOMMENDED_CPP_REVISION then
-        vim.health.ok(string.format("Custom Unreal C++ parser is active and up-to-date.\n    Revision: %s", installed_rev))
-      else
-        vim.health.info(string.format("Custom Unreal C++ parser is active (Revision mismatch).", {
-          string.format("Installed:   %s", installed_rev),
-          string.format("Recommended: %s", RECOMMENDED_CPP_REVISION),
-          "Since the parser is working correctly, this is likely fine.",
-          "If you encounter issues, consider updating to the recommended revision."
-        }))
-      end
-  else
-      vim.health.ok("Custom Unreal C++ parser is active. (Revision info unavailable)")
-  end
+  vim.health.ok("Custom Unreal C++ parser (taku25/tree-sitter-cpp) is active.")
 end
 
 local function check_unl_scanner()
@@ -122,7 +88,6 @@ local function check_unl_scanner()
   if binary then
     vim.health.ok(string.format("UNL Scanner: Found (%s)", binary))
   else
-    -- どこを探したかを表示するためのヒントを作成
     local source = debug.getinfo(unl_scanner.get_binary_path).source
     if source:sub(1,1) == "@" then source = source:sub(2) end
     local plugin_root = vim.fn.fnamemodify(source, ":p:h:h:h:h")
@@ -154,17 +119,17 @@ function M.check()
   -- 2. Core Library
   check_plugin("UNL.nvim", "UNL", "Core Library & Utilities", true)
   check_unl_scanner()
-  
-  -- 3. Tree-sitter Core
-  check_plugin("nvim-treesitter", "nvim-treesitter", "Syntax Highlighting & Parsing", true)
-  
+
+  -- 3. Tree-sitter Manager
+  check_plugin("tree-sitter-manager", "tree-sitter-manager", "Tree-sitter Parser Manager", false)
+
   check_plugin("USX.nvim", "USX", "Unreal Shader Syntax & Queries", false)
 
-  -- 5. Core Features
+  -- 4. Core Features
   check_plugin("UEP.nvim", "UEP", "Project Analysis & Navigation", false)
   check_plugin("UNX.nvim", "UNX", "Explorer UI", false)
 
-  -- 6. Optional Features
+  -- 5. Optional Features
   check_plugin("UBT.nvim", "UBT", "Build Tool Integration", false)
   check_plugin("ULG.nvim", "ULG", "Log Viewer", false)
   check_plugin("UCM.nvim", "UCM", "Class Management", false)
@@ -172,12 +137,12 @@ function M.check()
   check_plugin("USH.nvim", "USH", "UnrealShell Integration", false)
   check_plugin("UDB.nvim", "UDB", "Debugger Integration", false)
 
-  -- 7. Tree-sitter Parsers Check
+  -- 6. Tree-sitter Parsers Check
   vim.health.start("UnrealDev Parsers")
-  
-  check_custom_cpp_parser() 
-  check_treesitter_parser("ushader", "Unreal Shader Highlighting")
-  check_treesitter_parser("json", "Project File Parsing")
+
+  check_custom_cpp_parser()
+  check_treesitter_parser("ushader", "Unreal Shader Highlighting (taku25/tree-sitter-unreal-shader)")
+  check_treesitter_parser("verse",   "Verse Language Support (taku25/tree-sitter-verse)")
 end
 
 return M

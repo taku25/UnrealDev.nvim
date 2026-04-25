@@ -251,6 +251,12 @@ Usage: `:UDEV <subcommand> [args]`
 :UDEV find_usage [symbol_name]                           *UDEV-find_usage*
     Find all usages of the symbol under the cursor (streaming).
 
+:UDEV find_includers [file_name]                         *UDEV-find_includers*
+    Find all files that `#include` the specified header (reverse include
+    lookup). If `file_name` is omitted, the current buffer's name is used.
+    When the current file is a `.cpp`, the corresponding `.h` is resolved
+    automatically.
+
 :UDEV add_include[!] [class_name]                        *UDEV-add_include*
     Insert the `#include` directive for a class.
 

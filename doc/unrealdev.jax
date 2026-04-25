@@ -256,6 +256,11 @@ lazy.nvim を使う場合: >lua
 :UDEV find_usage [symbol_name]                           *UDEV-find_usage*
     カーソル下のシンボルの全使用箇所を検索します (ストリーミング)。
 
+:UDEV find_includers [file_name]                         *UDEV-find_includers*
+    指定したヘッダーファイルを `#include` している全ファイルを逆引き検索します。
+    `file_name` を省略した場合は現在のバッファのファイル名を使用します。
+    現在のバッファが `.cpp` の場合は対応する `.h` が自動的に使用されます。
+
 :UDEV add_include[!] [class_name]                        *UDEV-add_include*
     指定クラスの `#include` ディレクティブを挿入します。
 

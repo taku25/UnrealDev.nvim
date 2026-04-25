@@ -51,6 +51,28 @@ builder.create({
       desc = "UNL: Show server and project status.",
       args = {},
     },
+    ["cd"] = {
+      handler = api.cd,
+      desc = "UNL: Select a registered project and cd to it.",
+      args = {},
+    },
+    ["delete"] = {
+      handler = api.delete,
+      desc = "UNL: Delete a project from the UNL registry.",
+      args = {},
+    },
+    ["restart"] = {
+      handler = api.restart,
+      desc = "UNL: Restart the UNL scanner server.",
+      args = {},
+    },
+    ["debuglog"] = {
+      handler = function()
+        api.toggle_debug_log()
+      end,
+      desc = "UNL: Toggle the unified debug log viewer for all UNL plugins.",
+      args = {},
+    },
 
     --
     -- UBT Subcommands

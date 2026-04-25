@@ -19,6 +19,9 @@ if unl_ok then
   M.cd = unl_api.cd
   M.delete = unl_api.delete
 
+  M.restart = unl_api.restart
+  M.toggle_debug_log = unl_api.toggle_debug_log
+
   M.get_progress_component = unl_api.get_progress_component
   M.find_project = unl_api.find_project
   M.find_module = unl_api.find_module

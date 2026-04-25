@@ -153,8 +153,15 @@ builder.create({
       handler = function(opts)
         api.find_usage(opts)
       end,
-      desc = "UEP: Find all usages of the symbol under cursor (streaming).",
+      desc = "UEP: Find usages of symbol under cursor. Auto-detects type mode (class refs) or method mode (call sites).",
       args = { { name = "symbol_name", required = false } },
+    },
+    ["find_includers"] = {
+      handler = function(opts)
+        api.find_includers(opts)
+      end,
+      desc = "UEP: Find all files that #include the current header (reverse include lookup).",
+      args = { { name = "file_name", required = false } },
     },
     ["add_include"] = {
       handler = api.add_include,

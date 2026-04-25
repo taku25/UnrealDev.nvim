@@ -249,7 +249,21 @@ Usage: `:UDEV <subcommand> [args]`
     Show the full inheritance chain of a class.
 
 :UDEV find_usage [symbol_name]                           *UDEV-find_usage*
-    Find all usages of the symbol under the cursor (streaming).
+    Find all usages of the symbol under the cursor using tree-sitter based
+    analysis (results streamed to a picker).
+
+    Mode is auto-detected from `goto_definition` resolution:
+    - **Type mode** – cursor on a class/struct name:
+      Finds all type references (variable declarations, parameters, return
+      types, template arguments, inheritance).
+    - **Method mode** – cursor on a method/member name:
+      Finds all call sites (`obj->method()`, `obj.method()`,
+      `ClassName::method()`). Scope is verified via qualified_identifier
+      to minimise false positives for common method names.
+
+    Search scope in both modes: files that `#include` the header where the
+    owning class is defined.  Picker title: `"Find Usages: AMyActor"` or
+    `"Find Usages: AMyActor::GetHealth"`.
 
 :UDEV find_includers [file_name]                         *UDEV-find_includers*
     Find all files that `#include` the specified header (reverse include
@@ -402,6 +416,12 @@ ignored.
 
   -- Open class picker
   api.classes()
+
+  -- Find all usages of the symbol under the cursor (type or method mode)
+  api.find_usage()
+
+  -- Reverse include lookup for the current buffer's header
+  api.find_includers()
 
   -- Toggle explorer
   api.explorer_toggle()

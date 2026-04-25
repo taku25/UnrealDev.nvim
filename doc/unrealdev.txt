@@ -271,6 +271,22 @@ Usage: `:UDEV <subcommand> [args]`
     When the current file is a `.cpp`, the corresponding `.h` is resolved
     automatically.
 
+:UDEV rename_symbol                                      *UDEV-rename_symbol*
+    Rename the symbol under the cursor across all usage files (code only —
+    file names are NOT changed).
+
+    **Workflow:**
+    1. Resolves the symbol via tree-sitter (`goto_definition`).
+    2. Prompts for a new name (`vim.ui.input`, pre-filled with current name).
+    3. Collects all usages using the same scope as |:UDEV find_usage|.
+    4. Applies column-precise replacement in each usage file.
+    5. The definition header is also updated (whole-word replacement).
+    6. Progress is shown while processing; open buffers reload on completion.
+
+    Mode auto-detection is identical to |:UDEV find_usage|:
+    - **Type mode** – renames all type references to the class.
+    - **Method mode** – renames all call sites of the method.
+
 :UDEV add_include[!] [class_name]                        *UDEV-add_include*
     Insert the `#include` directive for a class.
 
@@ -422,6 +438,9 @@ ignored.
 
   -- Reverse include lookup for the current buffer's header
   api.find_includers()
+
+  -- Rename the symbol under the cursor across all usage files
+  api.rename_symbol()
 
   -- Toggle explorer
   api.explorer_toggle()

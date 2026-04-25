@@ -84,6 +84,7 @@ if uep_ok then
   M.copy_absolute_path = uep_api.copy_absolute_path
   M.copy_cwd_relative_path = uep_api.copy_cwd_relative_path
   M.copy_module_path = uep_api.copy_module_path
+  M.rename_symbol = uep_api.rename_symbol
 end
 
 --

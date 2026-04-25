@@ -163,6 +163,13 @@ builder.create({
       desc = "UEP: Find all files that #include the current header (reverse include lookup).",
       args = { { name = "file_name", required = false } },
     },
+    ["rename_symbol"] = {
+      handler = function(opts)
+        api.rename_symbol(opts)
+      end,
+      desc = "UEP: Rename the symbol under cursor across all usage files (code only, no file rename).",
+      args = {},
+    },
     ["add_include"] = {
       handler = api.add_include,
       bang = true,

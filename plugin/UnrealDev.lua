@@ -313,19 +313,31 @@ builder.create({
       args = { { name = "struct_name", required = false }, { name = "parent_struct", required = false } },
     },
     ["switch"] = {
-      handler = function()
+      handler = function(opts)
         local f = vim.api.nvim_buf_get_name(0)
         if f ~= "" then
-          api.switch_file({ current_file_path = f })
+          api.switch_file({ current_file_path = f, has_bang = opts and opts.has_bang })
         end
       end,
-      desc = "UCM: Switch between header and source file.",
+      bang = true,
+      desc = "UCM: Switch between header and source file. Use '!' to open in a vertical split.",
       args = {},
     },
     ["copy_include"] = {
       handler = api.copy_include,
       bang = true,
       desc = "UCM: Copy #include path for current file or selected class.",
+      args = { { name = "file_path", required = false } },
+    },
+    ["symbols"] = {
+      handler = function(opts) api.symbols(opts) end,
+      bang = true,
+      desc = "UCM: Show symbols in the current file. Use '!' to show only class/struct/enum definitions.",
+      args = { { name = "file_path", required = false } },
+    },
+    ["insert_include"] = {
+      handler = function(opts) api.insert_include(opts) end,
+      desc = "UCM: Insert a #include line into the current buffer at the correct position.",
       args = { { name = "file_path", required = false } },
     },
     ["copy_absolute_path"] = {
@@ -362,6 +374,20 @@ builder.create({
       desc = "ULG: Analyze a .utrace file. Use 'trace_log!' to open the file picker.",
       bang = true,
       args = {},
+    },
+    ["quickfix_log"] = {
+      handler = function()
+        api.quickfix_log()
+      end,
+      desc = "ULG: Populate the quickfix list with errors/warnings from the log window.",
+      args = {},
+    },
+    ["save_log"] = {
+      handler = function(opts)
+        api.save_log(opts)
+      end,
+      desc = "ULG: Save the current log buffer to a file.",
+      args = { { name = "filepath", required = false } },
     },
 
     --

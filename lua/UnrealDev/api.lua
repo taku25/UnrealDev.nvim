@@ -102,6 +102,8 @@ if ulg_ok then
   M.crash_log = ulg_api.crash
   M.remote = ulg_api.remote
   M.remote_command = ulg_api.remote_command
+  M.quickfix_log = ulg_api.quickfix
+  M.save_log = ulg_api.save
 end
 
 --
@@ -139,6 +141,7 @@ if ucm_ok then
   M.specifiers = ucm_api.specifiers
   M.copy_implementation = ucm_api.copy_implementation
   M.symbols = ucm_api.symbols
+  M.insert_include = ucm_api.insert_include
 end
 
 --

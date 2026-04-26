@@ -354,8 +354,9 @@ Usage: `:UDEV <subcommand> [args]`
 :UDEV new_struct [name] [parent]                         *UDEV-new_struct*
     Create a new C++ struct.
 
-:UDEV switch                                             *UDEV-switch*
+:UDEV switch[!]                                          *UDEV-switch*
     Toggle between the header and source file of the current buffer.
+    Use `!` to open the paired file in a vertical split instead.
 
 :UDEV create_decl                                        *UDEV-create_decl*
     Create a header declaration from the current implementation file.
@@ -366,6 +367,14 @@ Usage: `:UDEV <subcommand> [args]`
 :UDEV copy_include[!] [file_path]                        *UDEV-copy_include*
     Copy the `#include` path for the current file or a picked class.
 
+:UDEV symbols[!] [file_path]                             *UDEV-symbols*
+    Show a picker of all symbols in the current (or given) file.
+    Use `!` to show only class / struct / enum top-level type definitions.
+
+:UDEV insert_include [file_path]                         *UDEV-insert_include*
+    Pick a header from the project and insert its `#include` line after the
+    last existing `#include` in the current buffer.  Skips duplicates.
+
 ------------------------------------------------------------------------------
 5.5 Log Viewer (ULG)                                     *unrealdev-cmd-ulg*
 
@@ -374,6 +383,14 @@ Usage: `:UDEV <subcommand> [args]`
 
 :UDEV trace_log[!]                                       *UDEV-trace_log*
     Analyze a `.utrace` file (Unreal Insights).  Use `!` to pick.
+
+:UDEV quickfix_log                                       *UDEV-quickfix_log*
+    Populate Neovim's quickfix list with errors and warnings collected from
+    the active log buffers (UE log + build log) and open the quickfix window.
+
+:UDEV save_log [filepath]                                *UDEV-save_log*
+    Save the current log buffer content to a file.  If `filepath` is omitted,
+    prompts for a path (default: `ulg_export.log` in the current directory).
 
 ------------------------------------------------------------------------------
 5.6 Shell Session (USH)                                  *unrealdev-cmd-ush*

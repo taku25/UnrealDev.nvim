@@ -329,8 +329,9 @@ lazy.nvim を使う場合: >lua
 :UDEV new_struct [name] [parent]                         *UDEV-new_struct*
     新しい C++ 構造体を作成します。
 
-:UDEV switch                                             *UDEV-switch*
+:UDEV switch[!]                                          *UDEV-switch*
     現在のバッファのヘッダーファイルとソースファイルを切り替えます。
+    `!` を付けると、切り替え先を垂直分割で開きます。
 
 :UDEV create_decl                                        *UDEV-create_decl*
     現在の実装ファイルからヘッダー宣言を生成します。
@@ -341,6 +342,14 @@ lazy.nvim を使う場合: >lua
 :UDEV copy_include[!] [file_path]                        *UDEV-copy_include*
     現在のファイルまたは選択したクラスの `#include` パスをコピーします。
 
+:UDEV symbols[!] [file_path]                             *UDEV-symbols*
+    現在（または指定した）ファイルのシンボル一覧をピッカーで表示します。
+    `!` を付けると、クラス・構造体・列挙体のトップレベル型定義のみに絞り込みます。
+
+:UDEV insert_include [file_path]                         *UDEV-insert_include*
+    プロジェクトからヘッダーを選択し、その `#include` 行を現在のバッファの
+    最後の `#include` の直後に挿入します。重複する場合はスキップします。
+
 ------------------------------------------------------------------------------
 5.5 ログビューワー (ULG)                                 *unrealdev-cmd-ulg*
 
@@ -349,6 +358,14 @@ lazy.nvim を使う場合: >lua
 
 :UDEV trace_log[!]                                       *UDEV-trace_log*
     `.utrace` ファイル (Unreal Insights) を解析します。`!` でファイル選択。
+
+:UDEV quickfix_log                                       *UDEV-quickfix_log*
+    アクティブなログバッファ（UEログ・ビルドログ）から収集したエラー・警告を
+    Neovim の quickfix リストに登録し、quickfix ウィンドウを開きます。
+
+:UDEV save_log [filepath]                                *UDEV-save_log*
+    現在のログバッファの内容をファイルに保存します。`filepath` を省略すると
+    パス入力を促します（デフォルト: カレントディレクトリの `ulg_export.log`）。
 
 ------------------------------------------------------------------------------
 5.6 シェルセッション (USH)                               *unrealdev-cmd-ush*

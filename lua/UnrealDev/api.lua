@@ -21,6 +21,7 @@ if unl_ok then
 
   M.restart = unl_api.restart
   M.toggle_debug_log = unl_api.toggle_debug_log
+  M.rescan_assets = unl_api.rescan_assets
 
   M.get_progress_component = unl_api.get_progress_component
   M.find_project = unl_api.find_project

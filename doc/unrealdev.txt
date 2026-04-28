@@ -203,6 +203,25 @@ Usage: `:UDEV <subcommand> [args]`
 :UDEV status                                             *UDEV-status*
     Show server and project status.
 
+:UDEV restart                                            *UDEV-restart*
+    Restart the UNL scanner server.
+
+:UDEV cd                                                 *UDEV-cd*
+    Select a registered project and change the working directory to it.
+
+:UDEV delete                                             *UDEV-delete*
+    Remove a project from the UNL registry.
+
+:UDEV rescan_assets                                      *UDEV-rescan_assets*
+    Force a full re-scan of all `.uasset` / `.umap` files for the current
+    project.  The first scan runs automatically on server registration; use
+    this command to trigger a re-scan manually (e.g. after syncing assets
+    from a separate VCS).  If a scan is already running, the request is
+    ignored and a warning is shown.
+
+:UDEV debuglog                                           *UDEV-debuglog*
+    Toggle the unified debug log buffer for all UNL plugins.
+
 ------------------------------------------------------------------------------
 5.2 Build (UBT)                                          *unrealdev-cmd-build*
 

@@ -207,6 +207,24 @@ lazy.nvim を使う場合: >lua
 :UDEV status                                             *UDEV-status*
     サーバーとプロジェクトのステータスを表示します。
 
+:UDEV restart                                            *UDEV-restart*
+    UNL スキャナーサーバーを再起動します。
+
+:UDEV cd                                                 *UDEV-cd*
+    登録済みプロジェクトを選択し、そのディレクトリに移動します。
+
+:UDEV delete                                             *UDEV-delete*
+    UNL レジストリからプロジェクトを削除します。
+
+:UDEV rescan_assets                                      *UDEV-rescan_assets*
+    現在のプロジェクトの `.uasset` / `.umap` ファイルを強制的に全再スキャン
+    します。初回スキャンはサーバー登録時に自動実行されます。アセットを別の
+    VCS から同期した後など、手動で再スキャンしたいときに使用してください。
+    スキャンがすでに実行中の場合はリクエストを無視し、警告を表示します。
+
+:UDEV debuglog                                           *UDEV-debuglog*
+    全 UNL プラグイン共通のデバッグログバッファをトグルします。
+
 ------------------------------------------------------------------------------
 5.2 ビルド (UBT)                                         *unrealdev-cmd-build*
 

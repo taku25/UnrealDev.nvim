@@ -66,6 +66,11 @@ builder.create({
       desc = "UNL: Restart the UNL scanner server.",
       args = {},
     },
+    ["rescan_assets"] = {
+      handler = api.rescan_assets,
+      desc = "UNL: Force a full re-scan of all uasset/umap files for the current project.",
+      args = {},
+    },
     ["debuglog"] = {
       handler = function()
         api.toggle_debug_log()

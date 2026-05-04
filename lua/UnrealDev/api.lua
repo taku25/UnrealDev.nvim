@@ -101,6 +101,7 @@ if ulg_ok then
   M.close_log = ulg_api.close
   M.trace_log = ulg_api.trace
   M.crash_log = ulg_api.crash
+  M.uba_log = ulg_api.uba
   M.remote = ulg_api.remote
   M.remote_command = ulg_api.remote_command
   M.quickfix_log = ulg_api.quickfix

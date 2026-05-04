@@ -380,6 +380,13 @@ builder.create({
       bang = true,
       args = {},
     },
+    ["uba_log"] = {
+      handler = function()
+        api.uba_log()
+      end,
+      desc = "ULG: Select and view a .uba UBA build trace log.",
+      args = {},
+    },
     ["quickfix_log"] = {
       handler = function()
         api.quickfix_log()

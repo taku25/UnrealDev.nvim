@@ -381,10 +381,11 @@ builder.create({
       args = {},
     },
     ["uba_log"] = {
-      handler = function()
-        api.uba_log()
+      handler = function(opts)
+        api.uba_log(opts)
       end,
-      desc = "ULG: Select and view a .uba UBA build trace log.",
+      desc = "ULG: Display latest .uba build trace log. Use 'uba_log!' to pick a file.",
+      bang = true,
       args = {},
     },
     ["quickfix_log"] = {

@@ -345,6 +345,20 @@ builder.create({
       desc = "UCM: Insert a #include line into the current buffer at the correct position.",
       args = { { name = "file_path", required = false } },
     },
+    ["check_includes"] = {
+      handler = function()
+        api.check_includes(vim.api.nvim_get_current_buf())
+      end,
+      desc = "UCM: Check for missing #include directives in the current buffer.",
+      args = {},
+    },
+    ["fix_includes"] = {
+      handler = function()
+        api.fix_includes(vim.api.nvim_get_current_buf())
+      end,
+      desc = "UCM: Insert all missing #include directives detected by check_includes.",
+      args = {},
+    },
     ["copy_absolute_path"] = {
       handler = api.copy_absolute_path,
       desc = "UEP: Copy absolute path of current file to clipboard.",

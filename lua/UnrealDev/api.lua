@@ -144,6 +144,8 @@ if ucm_ok then
   M.copy_implementation = ucm_api.copy_implementation
   M.symbols = ucm_api.symbols
   M.insert_include = ucm_api.insert_include
+  M.check_includes = ucm_api.check_includes
+  M.fix_includes = ucm_api.fix_includes
 end
 
 --
